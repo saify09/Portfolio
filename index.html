@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saifuddin Hanif | Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html {scroll-behavior:smooth;font-size:16px;}
+body {background:#050505;color:#f0f0f0;overflow-x:hidden;line-height:1.6;}
+
+/* Typography */
+h1 {font-size:1.6rem;font-weight:700;letter-spacing:1px;font-family:'Trebuchet MS';}
+h2 {font-size:3.2rem;color:#00ffd0;text-shadow:0 0 8px #00ffd033;}
+h3.section-title {font-size:2.4rem;color:#00ffd0;text-align:center;margin-bottom:2.5rem;}
+h4 {font-size:1.25rem;font-weight:600;color:#00ffd0;}
+p {color:#bbb;font-size:1rem;}
+
+/* Header */
+header {position:fixed;top:0;left:0;width:100%;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 7%;background:rgba(5,5,5,0.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,255,204,0.08);}
+nav a {margin-left:2rem;color:#ccc;transition:0.3s;font-weight:500;text-decoration:none;}
+nav a:hover, nav a.active {color:orangered;}
+.resume-btn {background:linear-gradient(45deg,#00ffd0,#0077ff);color:#000;padding:0.6rem 1.5rem;border-radius:30px;font-weight:600;margin-left:2rem;box-shadow:0 0 12px rgba(0,255,204,.2);transition:.3s;}
+.resume-btn:hover {transform:translateY(-3px);box-shadow:0 0 20px rgba(0,255,204,.35);}
+
+/* Hero */
+.hero {min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;background:radial-gradient(circle at top left,#0f0f0f,#050505);overflow:hidden;}
+canvas#particles {position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+.hero-content {position:relative;z-index:2;max-width:800px;animation:fadeIn 1.5s ease;}
+.hero p {margin-top:1rem;font-size:1.1rem;color:#aaa;}
+.hero-buttons {margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.hero-buttons a {text-decoration:none;background:linear-gradient(45deg,#00ffd0,#0077ff);color:#000;padding:1rem 2.5rem;border-radius:40px;font-weight:600;transition:.3s;box-shadow:0 0 15px rgba(0,255,204,.2);}
+.hero-buttons a:hover {transform:translateY(-4px);box-shadow:0 0 25px rgba(0,255,204,.35);}
+
+/* Sections */
+section {padding:7rem 10%;position:relative;z-index:2;}
+.about p {max-width:700px;margin:0 auto;text-align:center;font-size:1.05rem;line-height:1.8;}
+
+/* Skills */
+.skills {background:#0b0b0b;text-align:center;}
+.skill-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-top:3rem;}
+.skill {background:linear-gradient(145deg,#101010,#1a1a1a);padding:2rem;border-radius:14px;text-align:center;border:1px solid rgba(0,255,204,0.1);box-shadow:inset 0 0 8px rgba(0,255,204,0.05),0 0 8px rgba(0,255,204,0.08);opacity:0;transform:translateY(20px);animation:popIn 1.5s forwards;}
+.skill:hover {transform:translateY(-4px);border-color:rgba(0,255,204,0.3);box-shadow:0 0 15px rgba(0,255,204,0.25),inset 0 0 10px rgba(0,255,204,0.05);}
+.skill h4 {margin-bottom:0.6rem;text-shadow:0 0 6px #00ffd033;}
+.skill p {font-size:0.9rem;}
+
+/* Projects */
+.project-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem;}
+.project {background-color:#1a1a1a;padding:2rem;border-radius:12px;border:1px solid rgba(0,255,204,0.08);box-shadow:inset 0 0 8px rgba(0,255,204,0.03);text-align:left;transition:transform 0.3s,box-shadow 0.3s;opacity:0;transform:translateY(20px);animation:popIn 1.5s forwards;}
+.project:hover {transform:translateY(-4px);border-color:rgba(0,255,204,0.3);box-shadow:0 0 15px rgba(0,255,204,0.25),inset 0 0 10px rgba(0,255,204,0.05);}
+.project h4 {margin-bottom:0.8rem;}
+.project p {margin-bottom:1rem;}
+.project a {color:#00aaff;font-weight:600;text-decoration:none;}
+.project a:hover {text-decoration:underline;}
+
+/* Contact */
+.contact {text-align:center;margin-top:4rem;}
+.contact p {color:#bbb;margin-bottom:2rem;}
+.social-icons {display:flex;justify-content:center;gap:2rem;margin-top:2rem;}
+.social {font-size:2rem;color:#00ffd0;text-decoration:none;border:2px solid rgba(0,255,204,0.15);border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(0,255,204,0.08);background:radial-gradient(circle,rgba(0,255,204,0.05),rgba(0,0,0,0.7));transition:all 0.3s ease;}
+.social:hover {color:#fff;border-color:#00ffd0;box-shadow:0 0 20px rgba(0,255,204,0.3),0 0 8px rgba(0,255,204,0.2) inset;transform:translateY(-3px) scale(1.05);}
+.social.linkedin:hover {color:#0A66C2;border-color:#0A66C2;}
+.social.github:hover {color:#fff;border-color:#fff;}
+.social.email:hover {color:#ff5c5c;border-color:#ff5c5c;}
+.social.twitter:hover {color:#1DA1F2;border-color:#1DA1F2;}
+
+/* === FEEDBACK SECTION STYLING === */
+#feedback-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.feedback-btn {
+  background: linear-gradient(45deg,#00ffd0,#0077ff);
+  color: #000;
+  padding: 0.7rem 1.8rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 12px rgba(0,255,204,0.2);
+  transition: 0.3s;
+}
+.feedback-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0,255,204,0.35);
+}
+
+#feedbackFormContainer {
+  margin-top: 15px;
+}
+
+#feedbackFormContainer input,
+#feedbackFormContainer textarea {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0.5rem auto;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,255,204,0.2);
+  background: #111;
+  color: #f0f0f0;
+  font-size: 1rem;
+}
+
+#feedbackFormContainer textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: linear-gradient(45deg,#00ffd0,#0077ff);
+  color: #000;
+  padding: 0.6rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,255,204,0.2);
+  transition: 0.3s;
+}
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,255,204,0.3);
+}
+
+/* Star rating */
+.star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+  color: #00ffd0;
+  cursor: pointer;
+}
+
+.star-rating i {
+  transition: transform 0.2s, color 0.2s;
+}
+.star-rating i:hover {
+  transform: scale(1.2);
+}
+
+/* Feedback summary */
+.feedback-summary {
+  margin-top: 15px;
+  font-size: 1.6rem;
+  color: #00ffd0;
+}
+
+@media (max-width: 480px) {
+  .star-rating {
+    font-size: 1.4rem;
+    gap: 5px;
+  }
+  .feedback-btn, .submit-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  #feedbackFormContainer input,
+  #feedbackFormContainer textarea {
+    max-width: 90%;
+  }
+}
+
+/* Footer */
+footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:1px solid rgba(255,255,255,.05);}
+
+/* Modal */
+.modal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);justify-content:center;align-items:center;z-index:2000;}
+.modal-content {background:rgba(20,20,20,0.9);border:1px solid rgba(0,255,204,0.15);border-radius:12px;padding:1.5rem;position:relative;width:90%;max-width:900px;height:80%;box-shadow:0 0 20px rgba(0,255,204,0.15);}
+.modal-content iframe {width:100%;height:90%;border:none;border-radius:8px;}
+.close-modal {position:absolute;top:10px;right:15px;font-size:1.5rem;color:#00ffd0;cursor:pointer;}
+.download-btn {display:inline-block;margin-top:1rem;background:linear-gradient(45deg,#00ffd0,#0077ff);color:#000;padding:0.7rem 1.5rem;border-radius:25px;font-weight:600;transition:.3s;}
+.download-btn:hover {box-shadow:0 0 15px rgba(0,255,204,.3);}
+
+/* Animations */
+@keyframes fadeIn {from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+@keyframes popIn {to{opacity:1;transform:translateY(0);}}
+
+/* Responsive */
+@media (max-width:1024px){html{font-size:15px;}h3.section-title{font-size:2.1rem;}}
+@media (max-width:768px){html{font-size:14px;}h3.section-title{font-size:1.8rem;}.social{font-size:1.6rem;width:50px;height:50px;}.social-icons{gap:1.5rem;}}
+@media (max-width:480px){html{font-size:13px;}h3.section-title{font-size:1.6rem;}nav a{font-size:0.9rem;}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Saifuddin Hanif</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="resume-btn" id="openResume">Resume</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-content">
+    <h2>Turning Data into Intelligence</h2>
+    <p>Hi, I'm <b>Saifuddin Hanif</b>, a Data Scientist crafting intelligent solutions with ML, AI, and analytics.</p>
+    <div class="hero-buttons">
+      <a href="#projects">Explore Projects</a>
+      <a href="#" id="openResume2">View Resume</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <h3 class="section-title">About Me</h3>
+  <p>I’m a passionate Data Science and AI learner with hands-on experience in building intelligent systems that combine analytics, automation, and visualization. I specialize in using Python, Machine Learning, and Web Technologies to extract insights from data and create meaningful, real-world solutions.<br>Currently focusing on Deep Learning, NLP, and AI deployment with Flask & Streamlit, I aim to design AI-powered systems that adapt and learn.</p>
+</section>
+
+<section id="skills" class="skills">
+  <h3 class="section-title">Skills & Core Expertise</h3>
+  <div class="skill-grid">
+    <div class="skill" style="animation-delay:0s;"><h4>Python</h4><p>Pandas, NumPy, Scikit-learn</p></div>
+    <div class="skill" style="animation-delay:0.1s;"><h4>Machine Learning</h4><p>Supervised & Unsupervised Models</p></div>
+    <div class="skill" style="animation-delay:0.2s;"><h4>Deep Learning</h4><p>TensorFlow, OpenCV, PyTorch</p></div>
+    <div class="skill" style="animation-delay:0.3s;"><h4>Data Visualization</h4><p>Matplotlib, Seaborn, Plotly</p></div>
+    <div class="skill" style="animation-delay:0.4s;"><h4>SQL & Databases</h4><p>MySQL, PostgreSQL, MongoDB</p></div>
+    <div class="skill" style="animation-delay:0.5s;"><h4>Excel / Power BI</h4><p>Interactive dashboards & KPIs</p></div>
+    <div class="skill" style="animation-delay:0.6s;"><h4>Statistics & Probability</h4><p>Hypothesis testing, Bayesian Methods</p></div>
+    <div class="skill" style="animation-delay:0.8s;"><h4>NLP & Text Analytics</h4><p>Sentiment Analysis, Chatbots</p></div>
+    <div class="skill" style="animation-delay:0.9s;"><h4>AI & Automation</h4><p>ML Ops, AutoML, Python Automation</p></div>
+    <div class="skill" style="animation-delay:1.0s;"><h4>Django</h4><p>FastApi, Frontend</p></div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h3 class="section-title">Featured Projects</h3>
+  <div class="project-grid">
+    <div class="project" style="animation-delay:0s;"><h4>Image Colorizer</h4><p>ML model that colorizes grayscale images.</p><a href="https://huggingface.co/spaces/SaifuddinHanif/Image-Colorizer">Click to view</a></div>
+    <div class="project" style="animation-delay:0.1s;"><h4>Heart Disease Prediction</h4><p>Predictive modeling to identify heart disease.</p><a href="https://heart-disease-prediction-app-saifuddinhanif.streamlit.app/">Click to view</a></div>
+    <div class="project" style="animation-delay:0.2s;"><h4>Sales Forecast Dashboard</h4><p>Interactive Power BI dashboard forecasting KPIs.</p><a href="#">Click to view</a></div>
+    <div class="project" style="animation-delay:0.3s;"><h4>Image Classification AI</h4><p>CNN model classifying images with 96% accuracy.</p><a href="#">Click to view</a></div>
+    <div class="project" style="animation-delay:0.4s;"><h4>Sentiment Analysis NLP</h4><p>Analyzed social media data for sentiment trends.</p><a href="#">Click to view</a></div>
+    <div class="project" style="animation-delay:0.5s;"><h4>Recommendation Engine</h4><p>Collaborative filtering for personalized suggestions.</p><a href="#">Click to view</a></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h3 class="section-title">Contact Me</h3>
+  <p>Let's connect! You can reach me through the links below.</p>
+  <div class="social-icons">
+    <a href="https://www.linkedin.com/in/saifuddinmuhammadhanif" class="social linkedin"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/saify09" class="social github"><i class="fab fa-github"></i></a>
+    <a href="mailto:saifuddinmuhammadhanif@gmail.com" class="social email"><i class="fas fa-envelope"></i></a>
+    <a href="https://twitter.com/your-twitter-handle" class="social twitter"><i class="bi bi-twitter-x"></i></a>
+  </div>
+
+  <div id="feedback-section">
+  <button id="feedbackBtn" class="feedback-btn">Give Feedback</button>
+
+  <div id="feedbackFormContainer" style="display:none; margin-top:15px;">
+      <div id="starRating" class="star-rating"></div>
+      <input type="text" id="feedbackName" placeholder="Your Name" />
+      <textarea id="feedbackMessage" placeholder="Your Feedback"></textarea>
+      <button id="submitFeedback" class="submit-btn">Submit</button>
+    </div>
+
+    <div id="feedbackSummary" class="feedback-summary" style="margin-top:15px; font-size:25px;"></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Saifuddin Hanif | Data Scientist Portfolio</p>
+</footer>
+
+<!-- Resume Modal -->
+<div class="modal" id="resumeModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <iframe src="resume.pdf"></iframe>
+    <a href="resume.pdf" target="_blank" class="download-btn">Download Resume</a>
+  </div>
+</div>
+
+<script>
+// === PARTICLES ===
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particlesArray;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+class Particle {
+  constructor() {
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.size = Math.random()*2;
+    this.speedX = Math.random()*0.3-0.15;
+    this.speedY = Math.random()*0.3-0.15;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x<0||this.x>canvas.width) this.speedX*=-1;
+    if(this.y<0||this.y>canvas.height) this.speedY*=-1;
+  }
+  draw(){
+    ctx.fillStyle='rgba(0,255,208,0.6)';
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function init(){particlesArray=[];for(let i=0;i<60;i++){particlesArray.push(new Particle());}}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+window.addEventListener('resize', () => {canvas.width = innerWidth; canvas.height = innerHeight; init();});
+
+init();
+animate();
+
+// === RESUME MODAL ===
+const modal = document.getElementById('resumeModal');
+const openModalBtns = [document.getElementById('openResume'), document.getElementById('openResume2')];
+const closeModalBtn = document.getElementById('closeModal');
+
+openModalBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {e.preventDefault(); modal.style.display = 'flex';});
+});
+closeModalBtn.addEventListener('click', () => {modal.style.display = 'none';});
+window.addEventListener('click', (e) => {if(e.target==modal) modal.style.display='none';});
+
+// === SMOOTH SCROLL & ACTIVE NAV ===
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a');
+const headerOffset = 120;
+
+function updateActiveLink() {
+    const scrollY = window.pageYOffset;
+    let current = 'home';
+    sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop - headerOffset;
+        const sectionHeight = section.offsetHeight;
+        if(index < sections.length - 1) {
+            if(scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) current = section.getAttribute('id');
+        } else {
+            if(scrollY + window.innerHeight >= sectionTop + sectionHeight/2) current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {link.classList.remove('active'); if(link.getAttribute('href') === '#' + current) link.classList.add('active');});
+    history.replaceState(null, '', '#' + current);
+}
+window.addEventListener('scroll', updateActiveLink);
+window.addEventListener('load', () => {window.scrollTo(0,0); updateActiveLink();});
+
+// === FEEDBACK SYSTEM === //
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackFormContainer = document.getElementById('feedbackFormContainer');
+const starRating = document.getElementById('starRating');
+const feedbackName = document.getElementById('feedbackName');
+const feedbackMessage = document.getElementById('feedbackMessage');
+const submitFeedback = document.getElementById('submitFeedback');
+const feedbackSummary = document.getElementById('feedbackSummary');
+
+let selectedRating = 0;
+
+// Toggle feedback form visibility
+feedbackBtn.addEventListener('click', () => {
+  feedbackFormContainer.style.display =
+    feedbackFormContainer.style.display === 'none' ? 'block' : 'none';
+});
+
+// Create clickable stars
+function createStars() {
+  starRating.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-star';
+    icon.dataset.value = i;
+
+    icon.addEventListener('mouseenter', () => renderStars(i));
+    icon.addEventListener('mouseleave', () => renderStars(selectedRating));
+    icon.addEventListener('click', () => {
+      selectedRating = i;
+      renderStars(selectedRating);
+    });
+
+    starRating.appendChild(icon);
+  }
+}
+
+// Render filled stars on hover/click
+function renderStars(rating) {
+  const stars = starRating.querySelectorAll('i');
+  stars.forEach((star, index) => {
+    const value = index + 1;
+    star.className = value <= rating ? 'bi bi-star-fill' : 'bi bi-star';
+  });
+}
+
+// Function to update feedback summary
+function updateFeedbackSummary() {
+  const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+  const total = feedbacks.length;
+  const avg = total ? feedbacks.reduce((a, f) => a + f.rating, 0) / total : 0;
+
+  const fullStars = Math.floor(avg);
+  const halfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+  let starsHTML = '';
+  for (let i = 0; i < fullStars; i++) starsHTML += '<i class="bi bi-star-fill"></i>';
+  if (halfStar) starsHTML += '<i class="bi bi-star-half"></i>';
+  for (let i = 0; i < emptyStars; i++) starsHTML += '<i class="bi bi-star"></i>';
+
+  feedbackSummary.innerHTML = `
+    <div class="feedback-summary-text">${total} feedback${total !== 1 ? 's' : ''}</div>
+    <div class="feedback-stars">${starsHTML} <span> ${avg.toFixed(1)}</span></div>
+  `;
+}
+
+// Handle feedback submission
+submitFeedback.addEventListener('click', () => {
+  const name = feedbackName.value.trim();
+  const message = feedbackMessage.value.trim();
+
+  if (!name || !message || selectedRating === 0) {
+    alert('Please fill all fields and select a rating!');
+    return;
+  }
+
+  const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+  feedbacks.push({ name, message, rating: selectedRating, timestamp: Date.now() });
+  localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+  feedbackName.value = '';
+  feedbackMessage.value = '';
+  selectedRating = 0;
+  renderStars(selectedRating);
+  feedbackFormContainer.style.display = 'none';
+  updateFeedbackSummary();
+});
+
+createStars();
+renderStars(selectedRating);
+updateFeedbackSummary();
+
+// FeedbackManager
+window.FeedbackManager = {
+  list: () => {
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    if (!feedbacks.length) {
+      console.log("📭 No feedbacks yet.");
+    } else {
+      console.log("🗒️ All Stored Feedbacks:\n");
+      console.table(
+        feedbacks.map(f => ({
+          Name: f.name,
+          Rating: f.rating,
+          Feedback: f.message,
+          Date: new Date(f.timestamp).toLocaleString(),
+        }))
+      );
+      console.log("💡 Tip: Access one feedback using FeedbackManager.list()[index]");
+    }
+    return feedbacks;
+  },
+
+  delete: (index) => {
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    if (index >= 0 && index < feedbacks.length) {
+      feedbacks.splice(index, 1);
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+      updateFeedbackSummary();
+      console.log(`🗑️ Deleted feedback at index ${index}`);
+    } else {
+      console.warn("⚠️ Invalid index — check FeedbackManager.list() for valid indices.");
+    }
+  },
+
+  clear: () => {
+    localStorage.removeItem('feedbacks');
+    updateFeedbackSummary();
+    console.log("🧹 All feedbacks cleared.");
+  }
+};
+
+// === AUTO SCROLL TO TOP ON FRESH LOAD ===
+window.addEventListener('load', () => {
+  // Only scroll to top if not using history navigation (back/forward)
+  if (performance.getEntriesByType("navigation")[0].type === "navigate") {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+</script>
+</body>
+</html>
+
+
+
