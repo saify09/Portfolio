@@ -4,9 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Saifuddin Hanif | Data Scientist</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <!-- Firebase Compat SDKs (For True Global Feedbacks) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
 
 <style>
 * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -679,22 +685,29 @@ const feedbackMessage = document.getElementById('feedbackMessage');
 const submitFeedback = document.getElementById('submitFeedback');
 const feedbackSummary = document.getElementById('feedbackSummary');
 
-// --- GLOBAL FEATURED FEEDBACKS (13 High-Power Reviews) ---
-let featuredFeedbacks = [
-  { id: 1, name: "Dr. Sarah Johnson", message: "Saifuddin's ability to simplify complex data into actionable insights is truly world-class. A dedicated professional!", rating: 5, isFeatured: true, category: "Strategic Insight" },
-  { id: 2, name: "Tech Solutions Inc.", message: "The predictive models implemented for our project exceeded expectations in accuracy and performance. Highly recommended.", rating: 5, isFeatured: true, category: "Machine Learning" },
-  { id: 3, name: "Mark T. (CTO)", message: "Innovative approach to NLP. One of the best data scientists I've collaborated with recently.", rating: 5, isFeatured: true, category: "AI Engineering" },
-  { id: 4, name: "Global Analytics Group", message: "A master of data visualization. Transformed our messy datasets into a clear story for stakeholders.", rating: 5, isFeatured: true, category: "Data Viz" },
-  { id: 5, name: "Prof. Alan Turing (Mentor)", message: "Exceptional analytical skills combined with a deep understanding of statistical theory.", rating: 5, isFeatured: true, category: "Statistics" },
-  { id: 6, name: "Startup Oasis", message: "His automation scripts saved our team over 20 hours a week. Invaluable asset for any scaling business.", rating: 5, isFeatured: true, category: "Automation" },
-  { id: 7, name: "Elena Rodriguez", message: "The most communicative and result-oriented data professional I have yet worked with. 5 stars all the way!", rating: 5, isFeatured: true, category: "Communication" },
-  { id: 8, name: "FinTech Hub", message: "Deeply impressed by the fraud detection system he developed—robust, scalable, and highly efficient.", rating: 5, isFeatured: true, category: "FinTech" },
-  { id: 9, name: "James Chen", message: "His work on customer segmentation significantly optimized our entire marketing ROI. Pure genius.", rating: 5, isFeatured: true, category: "Analytics" },
-  { id: 10, name: "DataX Partners", message: "Consistently delivers high-quality work within tight deadlines. A top-tier talent in the AI space.", rating: 5, isFeatured: true, category: "Reliability" },
-  { id: 11, name: "Cyber Armor Ltd", message: "Brilliant anomaly detection engine. Enhanced our security posture significantly.", rating: 5, isFeatured: true, category: "Cybersecurity" },
-  { id: 12, name: "Peak Health AI", message: "His health diagnostics model outperformed industry standards during our pilot phase.", rating: 5, isFeatured: true, category: "Healthcare IT" },
-  { id: 13, name: "Visionary Media", message: "A rare mix of technical depth and creative problem-solving. A joy to work with.", rating: 5, isFeatured: true, category: "Media Analytics" }
-];
+// === FIREBASE CONFIGURATION (True Global Mode) ===
+// 1. Create a Firebase project. 2. Enable Firestore. 3. Paste config here.
+const firebaseConfig = null; 
+
+let db = null;
+let isGlobalActive = false;
+
+if (firebaseConfig) {
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        isGlobalActive = true;
+        console.log("🔥 Firebase Global Mode: ACTIVE");
+    } catch (e) {
+        console.error("Firebase Init Error:", e);
+    }
+} else {
+    console.warn("⚠️ Global Mode: OFFLINE (Missing firebaseConfig in index.html)");
+}
+
+// --- GLOBAL FEATURED FEEDBACKS (Managed via Dashboard) ---
+let featuredFeedbacks = [];
+
 // ---------------------------------
 
 
@@ -736,25 +749,46 @@ function renderStars(rating) {
   });
 }
 
-// Function to update feedback summary
+// Function to update feedback summary (Local + Global)
 function updateFeedbackSummary() {
-  const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-  
-  // MERGE Local + Featured (Local first so they are visible/unblocked)
-  const allFeedbacks = [...localFeedbacks, ...featuredFeedbacks];
+  const testimonialsGrid = document.getElementById('testimonialsGrid');
+  const statusBadge = document.getElementById('backendStatusBadge');
 
-  
-  const total = allFeedbacks.length;
-  const avg = total ? allFeedbacks.reduce((a, f) => a + f.rating, 0) / total : 0;
+  if (isGlobalActive) {
+      // FETCH FROM FIRESTORE (Real-time)
+      db.collection('feedbacks').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+          const globalFeedbacks = [];
+          snapshot.forEach(doc => globalFeedbacks.push({ id: doc.id, ...doc.data() }));
+          renderAll(globalFeedbacks, true);
+      });
 
-  // Update Stats in Admin Panel
+      if(statusBadge) {
+          statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: LIVE';
+          statusBadge.className = 'backend-status status-online';
+      }
+  } else {
+      // Local Fallback
+      const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+      renderAll(localFeedbacks, false);
+      if(statusBadge) {
+          statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
+          statusBadge.className = 'backend-status status-offline';
+      }
+  }
+}
+
+function renderAll(feedbacks, fromGlobal) {
+  const total = feedbacks.length;
+  const avg = total ? feedbacks.reduce((a, f) => a + (f.rating || 0), 0) / total : 0;
+
+  // Update Stats
   if(document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
   if(document.getElementById('statAvg')) document.getElementById('statAvg').innerText = avg.toFixed(1);
 
+  // Summary Card Logic
   const fullStars = Math.floor(avg);
   const halfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
   let starsHTML = '';
   for (let i = 0; i < fullStars; i++) starsHTML += '<i class="bi bi-star-fill"></i>';
   if (halfStar) starsHTML += '<i class="bi bi-star-half"></i>';
@@ -764,38 +798,25 @@ function updateFeedbackSummary() {
     <div class="feedback-summary-text">${total} Total Feedback${total !== 1 ? 's' : ''}</div>
     <div class="feedback-stars">${starsHTML} <span> ${avg.toFixed(1)}</span></div>
   `;
-  
+
   // Update Testimonials Grid
   const testimonialsGrid = document.getElementById('testimonialsGrid');
   if(testimonialsGrid) {
-      // Filter for 5-star FEATURED feedbacks for "Powerful Employers" view
-      const powerReviews = allFeedbacks.filter(f => f.rating === 5 && f.isFeatured);
-      
-      // DISPLAY ONLY 5
-      const displayFeedbacks = powerReviews.slice(0, 5);
-
-
+      const genuineReviews = feedbacks.filter(f => f.rating === 5);
+      const displayFeedbacks = genuineReviews.slice(0, 6);
       
       let htmlContent = '';
       if(displayFeedbacks.length > 0) {
           displayFeedbacks.forEach(f => {
-              const badge = f.isFeatured ? `<span style="font-size:0.7rem; background:rgba(0,255,204,0.15); color:#00ffd0; padding:2px 8px; border-radius:10px; margin-left:8px; border:1px solid rgba(0,255,204,0.3);">${f.category || 'Verified'}</span>` : '';
               htmlContent += `
               <div class="testimonial-card">
-                <div class="testimonial-stars">
-                    ${'<i class="bi bi-star-fill"></i>'.repeat(5)}
-                </div>
+                <div class="testimonial-stars">${'<i class="bi bi-star-fill"></i>'.repeat(f.rating)}</div>
                 <p class="testimonial-text">"${f.message}"</p>
-                <div class="testimonial-author">~ ${f.name} ${badge}</div>
+                <div class="testimonial-author">~ ${f.name}</div>
               </div>`;
           });
       } else {
-          htmlContent = `
-            <div class="testimonial-card">
-              <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-              <p class="testimonial-text">"Professional, detailed, and incredibly skilled. Highly recommended!"</p>
-              <div class="testimonial-author">~ Example Client</div>
-            </div>`;
+          htmlContent = `<div class="testimonial-card"><p class="testimonial-text">No feedbacks yet!</p></div>`;
       }
       testimonialsGrid.innerHTML = htmlContent;
   }
@@ -814,17 +835,39 @@ submitFeedback.addEventListener('click', () => {
     return;
   }
 
-  const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-  feedbacks.push({ name, message, rating: selectedRating, timestamp: Date.now() });
-  localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+  const feedbackData = { name, message, rating: selectedRating, timestamp: Date.now() };
 
+  if (isGlobalActive) {
+      // SAVE TO FIRESTORE (Global)
+      db.collection('feedbacks').add(feedbackData).then(() => {
+          console.log("✅ Feedback saved globally!");
+          resetForm();
+      }).catch(err => {
+          console.error("Firebase Save Error:", err);
+          alert("Error saving global feedback. Saving locally instead.");
+          saveLocally(feedbackData);
+      });
+  } else {
+      saveLocally(feedbackData);
+  }
+});
+
+function saveLocally(data) {
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    feedbacks.push(data);
+    localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+    resetForm();
+    updateFeedbackSummary();
+}
+
+function resetForm() {
   feedbackName.value = '';
   feedbackMessage.value = '';
   selectedRating = 0;
   renderStars(selectedRating);
   feedbackFormContainer.style.display = 'none';
-  updateFeedbackSummary();
-});
+}
+
 
 createStars();
 renderStars(selectedRating);
@@ -897,8 +940,8 @@ const ADMIN_PASSWORD = "Saifuddin0985"; // You can change this
 // TO ENABLE GLOBAL TRACKING:
 // 1. Create a Firebase project.
 // 2. Enable Firestore.
-// 3. Paste your config below.
-const firebaseConfig = null; // Set this to enable global mode
+// 3. Paste your config in the 'firebaseConfig' variable ABOVE at the start of the script.
+
 
 window.openAdmin = function() {
     adminModal.style.display = 'flex';
@@ -1052,33 +1095,55 @@ function renderAdminDashboard() {
 window.deleteReview = function(type, index) {
     if(!confirm('Permanently delete this review from the dashboard?')) return;
     
-    if(type === 'featured') {
-        featuredFeedbacks.splice(index, 1);
+    if (isGlobalActive) {
+        // Find the global review to delete
+        db.collection('feedbacks').get().then(snapshot => {
+            const feedbacks = [];
+            snapshot.forEach(doc => feedbacks.push({ id: doc.id, ...doc.data() }));
+            const target = feedbacks[index];
+            if (target && target.id) {
+                db.collection('feedbacks').doc(target.id).delete().then(() => {
+                    console.log("🗑️ Global feedback deleted.");
+                });
+            }
+        });
     } else {
+        // Local Delete
         const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
         localFeedbacks.splice(index, 1);
         localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
-    }
-    
-    updateFeedbackSummary();
-    renderAdminDashboard();
-};
-
-window.editReview = function(type, index) {
-    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-    const all = type === 'featured' ? featuredFeedbacks : localFeedbacks;
-    const review = all[index];
-    
-    const newMsg = prompt("Edit Feedback Message:", review.message);
-    if(newMsg !== null) {
-        review.message = newMsg;
-        if(type === 'local') {
-            localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
-        }
         updateFeedbackSummary();
         renderAdminDashboard();
     }
 };
+
+
+window.editReview = function(type, index) {
+    if (isGlobalActive) {
+        db.collection('feedbacks').get().then(snapshot => {
+             const feedbacks = [];
+             snapshot.forEach(doc => feedbacks.push({ id: doc.id, ...doc.data() }));
+             const review = feedbacks[index];
+             if (review) {
+                 const newMsg = prompt("Edit Global Feedback:", review.message);
+                 if (newMsg) {
+                     db.collection('feedbacks').doc(review.id).update({ message: newMsg });
+                 }
+             }
+        });
+    } else {
+        const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        const review = localFeedbacks[index];
+        const newMsg = prompt("Edit Feedback Message:", review.message);
+        if(newMsg !== null) {
+            review.message = newMsg;
+            localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
+            updateFeedbackSummary();
+            renderAdminDashboard();
+        }
+    }
+};
+
 
 window.addEventListener('click', (e) => {
     if(e.target === adminModal) closeAdmin();
