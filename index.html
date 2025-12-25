@@ -1025,7 +1025,10 @@ window.closeAdmin = function() {
     adminModal.style.display = 'none';
 };
 
+let adminViewSource = 'global'; // Track which source we are viewing
+
 window.switchDataSource = function(source) {
+    adminViewSource = source;
     const localBtn = document.getElementById('toggleLocal');
     const globalBtn = document.getElementById('toggleGlobal');
     const setupInfo = document.getElementById('globalSetupInfo');
@@ -1053,28 +1056,43 @@ window.switchDataSource = function(source) {
         setupInfo.style.display = 'none';
         statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
         statusBadge.className = 'backend-status status-offline';
-        renderAdminDashboard(); // Re-render for local
     }
+    renderAdminDashboard(); 
 };
 
-function renderAdminDashboard() {
+async function renderAdminDashboard() {
+    let feedbacks = [];
     const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-    const all = [...localFeedbacks, ...featuredFeedbacks];
+    
+    adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;"><i class="bi bi-arrow-repeat spin"></i> Loading Data...</td></tr>';
+
+    if (adminViewSource === 'global' && isCloudActive) {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            feedbacks = data.feedbacks || [];
+        } catch (err) {
+            console.error("Dashboard Cloud Fetch Error:", err);
+            feedbacks = [];
+        }
+    } else {
+        feedbacks = localFeedbacks;
+    }
     
     // --- RENDER INSIGHTS ---
     const totalVisits = localStorage.getItem('stats_total_visits') || '0';
     const totalTime = parseInt(localStorage.getItem('stats_total_time') || '0');
     const avgTime = totalVisits > 0 ? (totalTime / totalVisits).toFixed(0) : 0;
-    const convRate = totalVisits > 0 ? ((localFeedbacks.length / totalVisits) * 100).toFixed(1) : 0;
+    const convRate = totalVisits > 0 ? ((feedbacks.length / totalVisits) * 100).toFixed(1) : 0;
     
     document.getElementById('insightVisits').innerText = totalVisits;
     document.getElementById('insightTime').innerText = avgTime + 's';
     document.getElementById('insightConv').innerText = convRate + '%';
     
-    // --- SHOW MIGRATION BUTTON IF LOCAL DATA EXISTS IN GLOBAL MODE ---
+    // --- SHOW MIGRATION BUTTON IF LOCAL DATA EXISTS ---
     const migrateBtn = document.getElementById('migrateToGlobalBtn');
     if (migrateBtn) {
-        if (isCloudActive && localFeedbacks.length > 0) {
+        if (localFeedbacks.length > 0) {
             migrateBtn.style.display = 'flex';
         } else {
             migrateBtn.style.display = 'none';
@@ -1082,7 +1100,6 @@ function renderAdminDashboard() {
     }
     
     // Visit Trends (Last 7 Days)
-
     const visitStats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
     const trendContainer = document.getElementById('adminVisitTrend');
     let trendHtml = '';
@@ -1122,22 +1139,21 @@ function renderAdminDashboard() {
     secContainer.innerHTML = secHtml;
 
     // --- RENDER TABLE ---
-    if(all.length === 0) {
-        adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No data found.</td></tr>';
+    if(feedbacks.length === 0) {
+        adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No data found in this source.</td></tr>';
         return;
     }
     
     let html = '';
-    all.forEach((f, index) => {
-        const isFeatured = f.isFeatured ? "featured" : "local";
+    feedbacks.forEach((f, index) => {
         html += `
-        <tr id="adminRow-${isFeatured}-${index}">
-            <td style="font-weight:600; color:#fff;">${f.name} ${f.isFeatured ? '<br><span style="font-size:0.6rem; color:#00ffd0">FEATURED</span>' : ''}</td>
+        <tr id="adminRow-${adminViewSource}-${index}">
+            <td style="font-weight:600; color:#fff;">${f.name}</td>
             <td>${'<i class="bi bi-star-fill" style="color:#FFD700; font-size:0.8rem;"></i>'.repeat(f.rating)}</td>
             <td style="font-size:0.9rem; line-height:1.4;">${f.message}</td>
             <td class="admin-action-btns">
-                <button class="edit-btn" onclick="editReview('${isFeatured}', ${index})">Edit</button>
-                <button class="delete-btn" onclick="deleteReview('${isFeatured}', ${index})">Delete</button>
+                <button class="edit-btn" onclick="editReview('${adminViewSource}', ${index})">Edit</button>
+                <button class="delete-btn" onclick="deleteReview('${adminViewSource}', ${index})">Delete</button>
             </td>
         </tr>
         `;
@@ -1146,9 +1162,9 @@ function renderAdminDashboard() {
 }
 
 window.deleteReview = async function(type, index) {
-    if(!confirm('Permanently delete this review from the dashboard?')) return;
+    if(!confirm('Permanently delete this review?')) return;
     
-    if (isCloudActive) {
+    if (type === 'global') {
         try {
             const res = await fetch(CLOUD_URL);
             const data = await res.json();
@@ -1178,7 +1194,7 @@ window.deleteReview = async function(type, index) {
 
 
 window.editReview = async function(type, index) {
-    if (isCloudActive) {
+    if (type === 'global') {
         try {
             const res = await fetch(CLOUD_URL);
             const data = await res.json();
