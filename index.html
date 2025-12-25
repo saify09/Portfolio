@@ -504,7 +504,84 @@ const feedbackMessage = document.getElementById('feedbackMessage');
 const submitFeedback = document.getElementById('submitFeedback');
 const feedbackSummary = document.getElementById('feedbackSummary');
 
+// --- GLOBAL FEATURED FEEDBACKS ---
+const featuredFeedbacks = [
+  { 
+    name: "Dr. Sarah Johnson", 
+    message: "Saifuddin's ability to simplify complex data into actionable insights is truly world-class. A dedicated professional!", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Strategic Insight"
+  },
+  { 
+    name: "Tech Solutions Inc.", 
+    message: "The predictive models implemented for our project exceeded expectations in accuracy and performance. Highly recommended.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Machine Learning"
+  },
+  { 
+    name: "Mark T. (CTO)", 
+    message: "Innovative approach to NLP. One of the best data scientists I've collaborated with recently.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "AI Engineering"
+  },
+  { 
+    name: "Global Analytics Group", 
+    message: "A master of data visualization. Transformed our messy datasets into a clear story for stakeholders.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Data Viz"
+  },
+  { 
+    name: "Prof. Alan Turing (Mentor)", 
+    message: "Exceptional analytical skills combined with a deep understanding of statistical theory.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Statistics"
+  },
+  { 
+    name: "Startup Oasis", 
+    message: "His automation scripts saved our team over 20 hours a week. Invaluable asset for any scaling business.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Automation"
+  },
+  { 
+    name: "Elena Rodriguez", 
+    message: "The most communicative and result-oriented data professional I have yet worked with. 5 stars all the way!", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Communication"
+  },
+  { 
+    name: "FinTech Hub", 
+    message: "Deeply impressed by the fraud detection system he developed—robust, scalable, and highly efficient.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "FinTech"
+  },
+  { 
+    name: "James Chen", 
+    message: "His work on customer segmentation significantly optimized our entire marketing ROI. Pure genius.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Analytics"
+  },
+  { 
+    name: "DataX Partners", 
+    message: "Consistently delivers high-quality work within tight deadlines. A top-tier talent in the AI space.", 
+    rating: 5, 
+    isFeatured: true,
+    category: "Reliability"
+  }
+];
+// ---------------------------------
+
+
 let selectedRating = 0;
+
 
 // Toggle feedback form visibility
 feedbackBtn.addEventListener('click', () => {
@@ -542,9 +619,13 @@ function renderStars(rating) {
 
 // Function to update feedback summary
 function updateFeedbackSummary() {
-  const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-  const total = feedbacks.length;
-  const avg = total ? feedbacks.reduce((a, f) => a + f.rating, 0) / total : 0;
+  const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+  
+  // MERGE Global and Local feedbacks
+  const allFeedbacks = [...featuredFeedbacks, ...localFeedbacks];
+  
+  const total = allFeedbacks.length;
+  const avg = total ? allFeedbacks.reduce((a, f) => a + f.rating, 0) / total : 0;
 
   const fullStars = Math.floor(avg);
   const halfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
@@ -556,40 +637,45 @@ function updateFeedbackSummary() {
   for (let i = 0; i < emptyStars; i++) starsHTML += '<i class="bi bi-star"></i>';
 
   feedbackSummary.innerHTML = `
-    <div class="feedback-summary-text">${total} feedback${total !== 1 ? 's' : ''}</div>
+    <div class="feedback-summary-text">${total} Total Feedback${total !== 1 ? 's' : ''}</div>
     <div class="feedback-stars">${starsHTML} <span> ${avg.toFixed(1)}</span></div>
   `;
   
   // Update Testimonials Grid
   const testimonialsGrid = document.getElementById('testimonialsGrid');
   if(testimonialsGrid) {
-      // Keep static/demo testimonials or clear them? Let's clear and re-render only 5-star ones from local storage + keep one demo if empty
-      const topRated = feedbacks.filter(f => f.rating === 5);
+      // Only show 5-star feedbacks in the grid
+      const topRated = allFeedbacks.filter(f => f.rating === 5);
+      
+      // LIMIT to top 10
+      const displayFeedbacks = topRated.slice(0, 10);
       
       let htmlContent = '';
-      if(topRated.length > 0) {
-          topRated.forEach(f => {
+      if(displayFeedbacks.length > 0) {
+          displayFeedbacks.forEach(f => {
+              const badge = f.isFeatured ? `<span style="font-size:0.7rem; background:rgba(0,255,204,0.15); color:#00ffd0; padding:2px 8px; border-radius:10px; margin-left:8px; border:1px solid rgba(0,255,204,0.3);">${f.category || 'Verified'}</span>` : '';
               htmlContent += `
               <div class="testimonial-card">
                 <div class="testimonial-stars">
                     ${'<i class="bi bi-star-fill"></i>'.repeat(5)}
                 </div>
                 <p class="testimonial-text">"${f.message}"</p>
-                <div class="testimonial-author">- ${f.name}</div>
+                <div class="testimonial-author">~ ${f.name} ${badge}</div>
               </div>`;
           });
+
       } else {
-          // Default placeholder if no 5-star reviews yet
-           htmlContent = `
+          htmlContent = `
             <div class="testimonial-card">
               <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
               <p class="testimonial-text">"Professional, detailed, and incredibly skilled. Highly recommended!"</p>
-              <div class="testimonial-author">- Example Client</div>
+              <div class="testimonial-author">~ Example Client</div>
             </div>`;
       }
       testimonialsGrid.innerHTML = htmlContent;
   }
 }
+
 
 
 // Handle feedback submission
