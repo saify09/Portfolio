@@ -322,54 +322,62 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
 .admin-table-container {overflow-x:auto; width:100%; border-radius:8px; background:rgba(0,0,0,0.2); padding:1rem; border:1px solid rgba(255,255,255,0.03);}
 .admin-table td {white-space:normal; min-width:120px;}
 
-/* Admin Login Screen */
+/* Admin Login Screen - FULL SCREEN MODAL */
 #adminLoginOverlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(10,10,10,0.95);
-    display: flex;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(5,5,5,0.98);
+    display: none; /* Controlled by JS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(20px);
+    z-index: 100000; /* Higher than everything */
+    backdrop-filter: blur(25px);
 }
 .login-card {
     background: rgba(255,255,255,0.03);
-    padding: 3rem;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3.5rem;
+    border-radius: 24px;
+    border: 1px solid rgba(0,255,208,0.2);
     text-align: center;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-    max-width: 400px;
+    box-shadow: 0 0 60px rgba(0,255,208,0.1);
+    max-width: 420px;
     width: 90%;
+    animation: fadeInScale 0.4s ease;
 }
-.login-card h3 { color: #fff; margin-bottom: 2rem; font-size: 1.5rem; letter-spacing: 2px;}
+@keyframes fadeInScale {
+    from { opacity:0; transform:scale(0.9); }
+    to { opacity:1; transform:scale(1); }
+}
+.login-card h3 { color: #fff; margin-bottom: 2rem; font-size: 1.5rem; letter-spacing: 3px; font-weight: 700; color: #00ffd0;}
 .login-card input {
     width: 100%;
-    padding: 1rem;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(0,255,208,0.2);
-    border-radius: 10px;
+    padding: 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
     color: #fff;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
+    margin-bottom: 2rem;
     transition: 0.3s;
 }
-.login-card input:focus { border-color: #00ffd0; outline: none; box-shadow: 0 0 15px rgba(0,255,208,0.2);}
+.login-card input:focus { border-color: #00ffd0; background: rgba(0,255,208,0.05); outline: none; }
 .login-btn {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(45deg, #00C9FF, #92FE9D);
-    border: none;
-    border-radius: 10px;
+    background: #00ffd0;
     color: #000;
-    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
     cursor: pointer;
+    letter-spacing: 2px;
     transition: 0.3s;
 }
-.login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,208,0.3);}
+.login-btn:hover { background: #00cca6; transform: translateY(-3px); }
+
 
 /* Backend Status Badge */
 .backend-status {
@@ -522,17 +530,8 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
       </div>
     </div>
 
-    <!-- Login Overlay -->
-    <div id="adminLoginOverlay">
-        <div class="login-card">
-            <div style="font-size:3rem; color:#00ffd0; margin-bottom:1rem;"><i class="bi bi-shield-lock-fill"></i></div>
-            <h3>ADMIN ACCESS</h3>
-            <input type="password" id="adminPassInput" placeholder="••••••" onkeyup="if(event.key==='Enter') attemptLogin()">
-            <button class="login-btn" onclick="attemptLogin()">AUTHENTICATE</button>
-            <p style="margin-top:1.5rem; font-size:0.75rem; color:#444;">Restricted Area. Authorized Access Only.</p>
-        </div>
+      </div>
     </div>
-
 
     <div class="admin-body">
       <!-- Insights Section -->
@@ -595,6 +594,17 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
       </div>
     </div>
   </div>
+</div>
+
+<!-- Admin Login Overlay (Moved to root for max visibility) -->
+<div id="adminLoginOverlay">
+    <div class="login-card">
+        <div style="font-size:3.5rem; color:#00ffd0; margin-bottom:1rem;"><i class="bi bi-shield-lock-fill"></i></div>
+        <h3>ADMIN ACCESS</h3>
+        <input type="password" id="adminPassInput" placeholder="••••••" onkeyup="if(event.key==='Enter') attemptLogin()">
+        <button class="login-btn" onclick="attemptLogin()">AUTHENTICATE</button>
+        <p style="margin-top:2rem; font-size:0.75rem; color:#666; font-family:monospace;">RESTRICTED AREA: AUTHORIZED PERSONNEL ONLY</p>
+    </div>
 </div>
 
 
@@ -710,8 +720,8 @@ const submitFeedback = document.getElementById('submitFeedback');
 const feedbackSummary = document.getElementById('feedbackSummary');
 
 // === GLOBAL CLOUD CONFIGURATION (Zero-Config Mode) ===
-const CLOUD_ID = "019b5540-f8ff-75ff-89b8-02ba65043834"; 
-const CLOUD_URL = `https://jsonblob.com/api/jsonBlob/${CLOUD_ID}`;
+const CLOUD_ID = "3a6cf3717ec46925f2ba"; 
+const CLOUD_URL = `https://api.npoint.io/${CLOUD_ID}`;
 
 let isCloudActive = true; 
 
@@ -863,8 +873,8 @@ submitFeedback.addEventListener('click', async () => {
           feedbacks.unshift(feedbackData); // Newest first
           
           await fetch(CLOUD_URL, {
-              method: 'PUT', 
-              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              method: 'POST', 
+              headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ feedbacks })
           });
           
@@ -971,20 +981,21 @@ const ADMIN_PASSWORD = "Saifuddin0985"; // You can change this
 
 
 window.openAdmin = function() {
-    console.log("🛠️ Attempting to open Admin Dashboard...");
-    adminModal.style.display = 'flex';
+    console.log("🛠️ Initializing Admin Dashboard...");
     const sessionToken = sessionStorage.getItem('admin_session');
-    console.log("Auth Status:", sessionToken || "None (Locked)");
     
     if (sessionToken === 'active') {
+        console.log("🔓 Session active. Opening Dashboard.");
+        adminModal.style.display = 'flex';
         adminLoginOverlay.style.display = 'none';
         renderAdminDashboard();
     } else {
+        console.log("🔒 Session locked. Prompting for password.");
         adminLoginOverlay.style.display = 'flex';
         setTimeout(() => {
             const input = document.getElementById('adminPassInput');
             if(input) input.focus();
-        }, 300);
+        }, 100);
     }
 };
 
@@ -995,9 +1006,10 @@ window.attemptLogin = function() {
     if (pass === ADMIN_PASSWORD) {
         sessionStorage.setItem('admin_session', 'active');
         adminLoginOverlay.style.display = 'none';
+        adminModal.style.display = 'flex';
         renderAdminDashboard();
         input.value = '';
-        console.log("🔓 Access Granted. Dashboard Opened.");
+        console.log("🔓 Authentication Successful.");
     } else {
         alert("❌ Incorrect password!");
         input.value = '';
@@ -1008,7 +1020,8 @@ window.attemptLogin = function() {
 window.logoutAdmin = function() {
     sessionStorage.removeItem('admin_session');
     adminLoginOverlay.style.display = 'flex';
-    console.log("🔒 Dashboard Locked.");
+    adminModal.style.display = 'none';
+    console.log("🔒 Session Terminated.");
 };
 
 window.closeAdmin = function() {
@@ -1146,8 +1159,8 @@ window.deleteReview = async function(type, index) {
             feedbacks.splice(index, 1);
             
             await fetch(CLOUD_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ feedbacks })
             });
             console.log("🗑️ Cloud feedback deleted.");
@@ -1180,8 +1193,8 @@ window.editReview = async function(type, index) {
                  if (newMsg) {
                      review.message = newMsg;
                      await fetch(CLOUD_URL, {
-                         method: 'PUT',
-                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
                          body: JSON.stringify({ feedbacks })
                      });
                      updateFeedbackSummary();
@@ -1228,8 +1241,8 @@ window.migrateLocalToGlobal = async function() {
         const mergedFeedbacks = [...localFeedbacks, ...cloudFeedbacks];
         
         await fetch(CLOUD_URL, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ feedbacks: mergedFeedbacks })
         });
 
