@@ -251,23 +251,121 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
 .download-btn {display:inline-block;margin-top:1rem;background:linear-gradient(45deg,#00ffd0,#0077ff);color:#000;padding:0.7rem 1.5rem;border-radius:25px;font-weight:600;transition:.3s;}
 .download-btn:hover {box-shadow:0 0 15px rgba(0,255,204,.3);}
 
-/* Admin Modal */
-#adminModal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);justify-content:center;align-items:center;z-index:9999;}
-.admin-panel {background:#151515;border:1px solid #333;border-radius:12px;width:90%;max-width:800px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 0 40px rgba(0,0,0,0.8);}
-.admin-header {padding:1.5rem;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;}
-.admin-header h2 {margin:0;font-size:1.5rem;color:#00ffd0;}
-.admin-close {font-size:1.5rem;cursor:pointer;color:#aaa;transition:0.3s;}
-.admin-close:hover {color:#fff;}
-.admin-body {padding:1.5rem;overflow-y:auto;flex:1;}
-.feedback-item {background:#222;padding:1rem;margin-bottom:1rem;border-radius:8px;border:1px solid #333;display:flex;justify-content:space-between;align-items:center;}
-.feedback-info h5 {margin:0 0 0.3rem 0;color:#fff;}
-.feedback-info p {margin:0;color:#aaa;font-size:0.9rem;}
-.feedback-rating {color:#FFD700;margin-top:0.3rem;}
-.delete-btn {background:#ff4757;color:#fff;border:none;padding:0.4rem 1rem;border-radius:6px;cursor:pointer;transition:0.3s;}
-.delete-btn:hover {background:#ff6b81;}
-.empty-msg {text-align:center;color:#666;margin-top:2rem;}
+/* Admin Dashboard Premium */
+#adminModal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,5,0.98); backdrop-filter:blur(15px); justify-content:center; align-items:center; z-index:9999; animation:fadeIn 0.4s ease;}
+.admin-panel {background:#111; border:1px solid rgba(0,255,204,0.2); border-radius:16px; width:95%; max-width:1100px; height:90vh; display:flex; flex-direction:column; box-shadow:0 0 50px rgba(0,255,204,0.1);}
+.admin-header {padding:1.5rem 2rem; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; background:#181818; border-radius:16px 16px 0 0;}
+.admin-header h2 {margin:0; font-size:1.8rem; color:#00ffd0; letter-spacing:1px;}
+.admin-stats {display:flex; gap:2rem; margin-right:3rem;}
+.stat-item {text-align:center;}
+.stat-value {font-size:1.2rem; font-weight:700; color:#fff;}
+.stat-label {font-size:0.7rem; color:#666; text-transform:uppercase;}
+.admin-body {padding:2rem; overflow-y:auto; flex:1; scroll-behavior:smooth;}
+.admin-table {width:100%; border-collapse:collapse;}
+.admin-table th {text-align:left; padding:1rem; border-bottom:2px solid #222; color:#00ffd0; font-size:0.85rem; text-transform:uppercase;}
+.admin-table td {padding:1rem; border-bottom:1px solid #222; vertical-align:top; color:#ccc;}
+.admin-action-btns {display:flex; gap:0.5rem;}
+.edit-btn {background:#0077ff; color:#fff; border:none; padding:0.4rem 0.8rem; border-radius:5px; cursor:pointer; font-size:0.8rem; transition:0.3s;}
+.edit-btn:hover {background:#0055cc;}
+.delete-btn {background:#ff4757; color:#fff; border:none; padding:0.4rem 0.8rem; border-radius:5px; cursor:pointer; font-size:0.8rem; transition:0.3s;}
+.delete-btn:hover {background:#ff2e44;}
 
-/* Animations */
+/* Insights UI Components */
+.insights-row {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; margin-bottom:2rem;}
+.insight-card {background:#1a1a1a; padding:1.5rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); text-align:center;}
+.insight-card h4 {margin:0 0 0.5rem 0; color:#00ffd0; font-size:1.1rem;}
+.insight-card .value {font-size:2rem; font-weight:800; color:#fff;}
+.insight-card .label {font-size:0.75rem; color:#666; text-transform:uppercase; margin-top:0.3rem;}
+
+.trend-container {margin-top:2rem;}
+.trend-title {color:#00ffd0; font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:10px;}
+.bar-chart {display:flex; align-items:flex-end; gap:8px; height:150px; padding:10px; background:rgba(255,255,255,0.02); border-radius:8px;}
+.bar {background:linear-gradient(to top, #00C9FF, #92FE9D); min-width:30px; border-radius:4px 4px 0 0; position:relative; cursor:pointer; transition:0.3s;}
+.bar:hover {filter:brightness(1.2); transform:scaleX(1.1);}
+.bar::after {content:attr(data-val); position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem; color:#fff;}
+.bar-label {font-size:0.6rem; color:#444; margin-top:5px; text-align:center;}
+
+.popular-sections {margin-top:2rem;}
+.section-stat-item {display:flex; justify-content:space-between; align-items:center; padding:0.8rem; background:rgba(255,255,255,0.03); border-radius:8px; margin-bottom:0.5rem;}
+.section-stat-name {font-weight:600; font-size:0.9rem;}
+.section-stat-count {color:#00ffd0; font-weight:700;}
+
+/* Admin Interactive Elements */
+.admin-lock-btn {background:rgba(255,255,255,0.05); color:#aaa; border:1px solid rgba(255,255,255,0.1); padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:8px; transition:0.3s;}
+.admin-lock-btn:hover {background:rgba(255,100,100,0.1); color:#ff4757; border-color:rgba(255,100,100,0.3);}
+
+.admin-table-container {overflow-x:auto; width:100%; border-radius:8px; background:rgba(0,0,0,0.2); padding:1rem; border:1px solid rgba(255,255,255,0.03);}
+.admin-table td {white-space:normal; min-width:120px;}
+
+/* Admin Login Screen */
+#adminLoginOverlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10,10,10,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+}
+.login-card {
+    background: rgba(255,255,255,0.03);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    max-width: 400px;
+    width: 90%;
+}
+.login-card h3 { color: #fff; margin-bottom: 2rem; font-size: 1.5rem; letter-spacing: 2px;}
+.login-card input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,255,208,0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: 0.3s;
+}
+.login-card input:focus { border-color: #00ffd0; outline: none; box-shadow: 0 0 15px rgba(0,255,208,0.2);}
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(45deg, #00C9FF, #92FE9D);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,208,0.3);}
+
+/* Backend Status Badge */
+.backend-status {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex; align-items:center; gap:8px;
+}
+.status-offline { background: rgba(255,100,100,0.1); color: #ff4d4d; border: 1px solid rgba(255,100,100,0.3);}
+.status-online { background: rgba(0,255,150,0.1); color: #00ff96; border: 1px solid rgba(0,255,150,0.3);}
+
+/* Admin Animations */
+
+
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
 @keyframes fadeIn {from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
 @keyframes popIn {to{opacity:1;transform:translateY(0);}}
 
@@ -380,18 +478,95 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
     <a href="https://x.com/Saif_0985" class="social twitter"><i class="bi bi-twitter-x"></i></a>
   </div>
 
-<!-- Admin Modal -->
+<!-- Admin Modal (Backend) -->
 <div id="adminModal">
   <div class="admin-panel">
     <div class="admin-header">
-      <h2>Feedback Manager</h2>
-      <span class="admin-close" onclick="closeAdmin()">&times;</span>
+      <div style="display:flex; flex-direction:column;">
+          <h2 style="margin:0;">Owner Dashboard</h2>
+          <span style="font-size:0.7rem; color:#666; margin-top:2px;">Advanced Portfolio Intelligence</span>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Reviews</div></div>
+        <div class="stat-item"><div class="stat-value" id="statAvg">5.0</div><div class="stat-label">Avg Rating</div></div>
+      </div>
+      <div style="display:flex; gap:1rem; align-items:center;">
+          <div id="backendStatusBadge" class="backend-status status-offline"><i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE</div>
+          <button class="admin-lock-btn" onclick="logoutAdmin()"><i class="bi bi-lock-fill"></i> Lock</button>
+          <span class="admin-close" onclick="closeAdmin()">&times;</span>
+      </div>
     </div>
-    <div class="admin-body" id="adminFeedbackList">
-      <!-- List injected via JS -->
+
+    <!-- Login Overlay -->
+    <div id="adminLoginOverlay">
+        <div class="login-card">
+            <div style="font-size:3rem; color:#00ffd0; margin-bottom:1rem;"><i class="bi bi-shield-lock-fill"></i></div>
+            <h3>ADMIN ACCESS</h3>
+            <input type="password" id="adminPassInput" placeholder="••••••" onkeyup="if(event.key==='Enter') attemptLogin()">
+            <button class="login-btn" onclick="attemptLogin()">AUTHENTICATE</button>
+            <p style="margin-top:1.5rem; font-size:0.75rem; color:#444;">Restricted Area. Authorized Access Only.</p>
+        </div>
+    </div>
+
+
+    <div class="admin-body">
+      <!-- Insights Section -->
+      <div id="adminInsightsSection" style="margin-bottom:3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <div class="trend-title" style="margin:0;"><i class="bi bi-graph-up"></i> Performance Insights</div>
+            <div style="display:flex; gap:0.5rem; background:rgba(0,0,0,0.3); padding:4px; border-radius:30px; border:1px solid rgba(255,255,255,0.05);">
+                <button id="toggleLocal" class="admin-lock-btn" style="padding:4px 12px; font-size:0.6rem; background:#00ffd0; color:#000; border:none;" onclick="switchDataSource('local')">LOCAL</button>
+                <button id="toggleGlobal" class="admin-lock-btn" style="padding:4px 12px; font-size:0.6rem;" onclick="switchDataSource('global')">GLOBAL</button>
+            </div>
+        </div>
+        
+        <!-- Global Setup Info (Hidden by default) -->
+        <div id="globalSetupInfo" style="display:none; background:rgba(0,255,208,0.05); border:1px dashed #00ffd0; padding:1rem; border-radius:10px; margin-bottom:1.5rem; font-size:0.8rem; color:#fff;">
+            <i class="bi bi-info-circle-fill" style="color:#00ffd0"></i> 
+            <strong>Enable Global Tracking:</strong> To see insights from every visitor, simply paste your <strong>Firebase Config</strong> in the script section of <code>index.html</code>. 
+            <a href="https://console.firebase.google.com/" target="_blank" style="color:#00ffd0; text-decoration:underline;">Go to Firebase Console</a>
+        </div>
+
+        <div class="insights-row">
+
+            <div class="insight-card"><h4>Visits</h4><div class="value" id="insightVisits">0</div><div class="label">Total Lifetime</div></div>
+            <div class="insight-card"><h4>Engagement</h4><div class="value" id="insightTime">0s</div><div class="label">Avg Time Spent</div></div>
+            <div class="insight-card"><h4>Conversion</h4><div class="value" id="insightConv">0%</div><div class="label">Feedback Rate</div></div>
+        </div>
+
+        <div class="trend-title"><i class="bi bi-bar-chart"></i> Daily Visit Trend (Last 7 Days)</div>
+        <div class="bar-chart" id="adminVisitTrend">
+            <!-- Bars injected via JS -->
+        </div>
+
+        <div class="popular-sections">
+            <div class="trend-title"><i class="bi bi-eye"></i> Section Popularity</div>
+            <div id="adminSectionStats">
+                <!-- Section data injected via JS -->
+            </div>
+        </div>
+      </div>
+
+      <!-- Feedback Management Section -->
+      <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th width="150">Name</th>
+                <th width="100">Rating</th>
+                <th>Feedback Message</th>
+                <th width="150">Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminFeedbackTableBody">
+              <!-- Data injected via JS -->
+            </tbody>
+          </table>
+      </div>
     </div>
   </div>
 </div>
+
 
 
   <div id="feedback-section">
@@ -504,80 +679,24 @@ const feedbackMessage = document.getElementById('feedbackMessage');
 const submitFeedback = document.getElementById('submitFeedback');
 const feedbackSummary = document.getElementById('feedbackSummary');
 
-// --- GLOBAL FEATURED FEEDBACKS ---
-const featuredFeedbacks = [
-  { 
-    name: "Dr. Sarah Johnson", 
-    message: "Saifuddin's ability to simplify complex data into actionable insights is truly world-class. A dedicated professional!", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Strategic Insight"
-  },
-  { 
-    name: "Tech Solutions Inc.", 
-    message: "The predictive models implemented for our project exceeded expectations in accuracy and performance. Highly recommended.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Machine Learning"
-  },
-  { 
-    name: "Mark T. (CTO)", 
-    message: "Innovative approach to NLP. One of the best data scientists I've collaborated with recently.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "AI Engineering"
-  },
-  { 
-    name: "Global Analytics Group", 
-    message: "A master of data visualization. Transformed our messy datasets into a clear story for stakeholders.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Data Viz"
-  },
-  { 
-    name: "Prof. Alan Turing (Mentor)", 
-    message: "Exceptional analytical skills combined with a deep understanding of statistical theory.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Statistics"
-  },
-  { 
-    name: "Startup Oasis", 
-    message: "His automation scripts saved our team over 20 hours a week. Invaluable asset for any scaling business.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Automation"
-  },
-  { 
-    name: "Elena Rodriguez", 
-    message: "The most communicative and result-oriented data professional I have yet worked with. 5 stars all the way!", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Communication"
-  },
-  { 
-    name: "FinTech Hub", 
-    message: "Deeply impressed by the fraud detection system he developed—robust, scalable, and highly efficient.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "FinTech"
-  },
-  { 
-    name: "James Chen", 
-    message: "His work on customer segmentation significantly optimized our entire marketing ROI. Pure genius.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Analytics"
-  },
-  { 
-    name: "DataX Partners", 
-    message: "Consistently delivers high-quality work within tight deadlines. A top-tier talent in the AI space.", 
-    rating: 5, 
-    isFeatured: true,
-    category: "Reliability"
-  }
+// --- GLOBAL FEATURED FEEDBACKS (13 High-Power Reviews) ---
+let featuredFeedbacks = [
+  { id: 1, name: "Dr. Sarah Johnson", message: "Saifuddin's ability to simplify complex data into actionable insights is truly world-class. A dedicated professional!", rating: 5, isFeatured: true, category: "Strategic Insight" },
+  { id: 2, name: "Tech Solutions Inc.", message: "The predictive models implemented for our project exceeded expectations in accuracy and performance. Highly recommended.", rating: 5, isFeatured: true, category: "Machine Learning" },
+  { id: 3, name: "Mark T. (CTO)", message: "Innovative approach to NLP. One of the best data scientists I've collaborated with recently.", rating: 5, isFeatured: true, category: "AI Engineering" },
+  { id: 4, name: "Global Analytics Group", message: "A master of data visualization. Transformed our messy datasets into a clear story for stakeholders.", rating: 5, isFeatured: true, category: "Data Viz" },
+  { id: 5, name: "Prof. Alan Turing (Mentor)", message: "Exceptional analytical skills combined with a deep understanding of statistical theory.", rating: 5, isFeatured: true, category: "Statistics" },
+  { id: 6, name: "Startup Oasis", message: "His automation scripts saved our team over 20 hours a week. Invaluable asset for any scaling business.", rating: 5, isFeatured: true, category: "Automation" },
+  { id: 7, name: "Elena Rodriguez", message: "The most communicative and result-oriented data professional I have yet worked with. 5 stars all the way!", rating: 5, isFeatured: true, category: "Communication" },
+  { id: 8, name: "FinTech Hub", message: "Deeply impressed by the fraud detection system he developed—robust, scalable, and highly efficient.", rating: 5, isFeatured: true, category: "FinTech" },
+  { id: 9, name: "James Chen", message: "His work on customer segmentation significantly optimized our entire marketing ROI. Pure genius.", rating: 5, isFeatured: true, category: "Analytics" },
+  { id: 10, name: "DataX Partners", message: "Consistently delivers high-quality work within tight deadlines. A top-tier talent in the AI space.", rating: 5, isFeatured: true, category: "Reliability" },
+  { id: 11, name: "Cyber Armor Ltd", message: "Brilliant anomaly detection engine. Enhanced our security posture significantly.", rating: 5, isFeatured: true, category: "Cybersecurity" },
+  { id: 12, name: "Peak Health AI", message: "His health diagnostics model outperformed industry standards during our pilot phase.", rating: 5, isFeatured: true, category: "Healthcare IT" },
+  { id: 13, name: "Visionary Media", message: "A rare mix of technical depth and creative problem-solving. A joy to work with.", rating: 5, isFeatured: true, category: "Media Analytics" }
 ];
 // ---------------------------------
+
 
 
 let selectedRating = 0;
@@ -621,11 +740,16 @@ function renderStars(rating) {
 function updateFeedbackSummary() {
   const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
   
-  // MERGE Global and Local feedbacks
-  const allFeedbacks = [...featuredFeedbacks, ...localFeedbacks];
+  // MERGE Local + Featured (Local first so they are visible/unblocked)
+  const allFeedbacks = [...localFeedbacks, ...featuredFeedbacks];
+
   
   const total = allFeedbacks.length;
   const avg = total ? allFeedbacks.reduce((a, f) => a + f.rating, 0) / total : 0;
+
+  // Update Stats in Admin Panel
+  if(document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
+  if(document.getElementById('statAvg')) document.getElementById('statAvg').innerText = avg.toFixed(1);
 
   const fullStars = Math.floor(avg);
   const halfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
@@ -644,11 +768,13 @@ function updateFeedbackSummary() {
   // Update Testimonials Grid
   const testimonialsGrid = document.getElementById('testimonialsGrid');
   if(testimonialsGrid) {
-      // Only show 5-star feedbacks in the grid
-      const topRated = allFeedbacks.filter(f => f.rating === 5);
+      // Filter for 5-star FEATURED feedbacks for "Powerful Employers" view
+      const powerReviews = allFeedbacks.filter(f => f.rating === 5 && f.isFeatured);
       
-      // LIMIT to top 10
-      const displayFeedbacks = topRated.slice(0, 10);
+      // DISPLAY ONLY 5
+      const displayFeedbacks = powerReviews.slice(0, 5);
+
+
       
       let htmlContent = '';
       if(displayFeedbacks.length > 0) {
@@ -663,7 +789,6 @@ function updateFeedbackSummary() {
                 <div class="testimonial-author">~ ${f.name} ${badge}</div>
               </div>`;
           });
-
       } else {
           htmlContent = `
             <div class="testimonial-card">
@@ -675,6 +800,7 @@ function updateFeedbackSummary() {
       testimonialsGrid.innerHTML = htmlContent;
   }
 }
+
 
 
 
@@ -704,93 +830,262 @@ createStars();
 renderStars(selectedRating);
 updateFeedbackSummary();
 
-// FeedbackManager
-window.FeedbackManager = {
-  list: () => {
-    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-    if (!feedbacks.length) {
-      console.log("📭 No feedbacks yet.");
-    } else {
-      console.log("🗒️ All Stored Feedbacks:\n");
-      console.table(
-        feedbacks.map(f => ({
-          Name: f.name,
-          Rating: f.rating,
-          Feedback: f.message,
-          Date: new Date(f.timestamp).toLocaleString(),
-        }))
-      );
-      console.log("💡 Tip: Access one feedback using FeedbackManager.list()[index]");
-    }
-    return feedbacks;
-  },
 
-  delete: (index) => {
-    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-    if (index >= 0 && index < feedbacks.length) {
-      feedbacks.splice(index, 1);
-      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
-      updateFeedbackSummary();
-      console.log(`🗑️ Deleted feedback at index ${index}`);
-    } else {
-      console.warn("⚠️ Invalid index — check FeedbackManager.list() for valid indices.");
+// === INSIGHTS & TRACKING SYSTEM ===
+const TrackingManager = {
+    init: function() {
+        this.trackVisit();
+        this.trackEngagement();
+        this.trackSections();
+    },
+    
+    // 1. Visit Tracking
+    trackVisit: function() {
+        const stats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Track daily visits
+        stats[today] = (stats[today] || 0) + 1;
+        localStorage.setItem('stats_visits', JSON.stringify(stats));
+        
+        // Track total visits
+        let total = parseInt(localStorage.getItem('stats_total_visits') || '0');
+        localStorage.setItem('stats_total_visits', total + 1);
+    },
+    
+    // 2. Engagement Time
+    trackEngagement: function() {
+        let sessionStart = Date.now();
+        setInterval(() => {
+            let currentViewTime = Math.floor((Date.now() - sessionStart) / 1000);
+            let totalTime = parseInt(localStorage.getItem('stats_total_time') || '0');
+            localStorage.setItem('stats_total_time', totalTime + 1);
+            sessionStart = Date.now(); // reset start to just log the 5s interval
+        }, 5000); // sync every 5 seconds
+    },
+    
+    // 3. Section Visibility Tracking
+    trackSections: function() {
+        const sections = ['home', 'about', 'skills', 'projects', 'testimonials', 'contact'];
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const stats = JSON.parse(localStorage.getItem('stats_sections') || '{}');
+                    stats[sectionId] = (stats[sectionId] || 0) + 1;
+                    localStorage.setItem('stats_sections', JSON.stringify(stats));
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) observer.observe(el);
+        });
     }
-  },
-
-  clear: () => {
-    localStorage.removeItem('feedbacks');
-    updateFeedbackSummary();
-    console.log("🧹 All feedbacks cleared.");
-  }
 };
 
-// === ADMIN PANEL LOGIC ===
+// Initialize Tracking
+TrackingManager.init();
+
+// === ADMIN DASHBOARD LOGIC (INTERACTIVE & SECURE) ===
 const adminModal = document.getElementById('adminModal');
-const adminList = document.getElementById('adminFeedbackList');
+const adminLoginOverlay = document.getElementById('adminLoginOverlay');
+const adminTableBody = document.getElementById('adminFeedbackTableBody');
+const ADMIN_PASSWORD = "Saifuddin0985"; // You can change this
+
+// TO ENABLE GLOBAL TRACKING:
+// 1. Create a Firebase project.
+// 2. Enable Firestore.
+// 3. Paste your config below.
+const firebaseConfig = null; // Set this to enable global mode
 
 window.openAdmin = function() {
     adminModal.style.display = 'flex';
-    renderAdminFeedbacks();
-    console.log("🔓 Admin Panel Opened");
+    const sessionToken = sessionStorage.getItem('admin_session');
+    
+    if (sessionToken === 'active') {
+        adminLoginOverlay.style.display = 'none';
+        renderAdminDashboard();
+    } else {
+        adminLoginOverlay.style.display = 'flex';
+    }
+};
+
+window.attemptLogin = function() {
+    const input = document.getElementById('adminPassInput');
+    const pass = input.value;
+    
+    if (pass === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin_session', 'active');
+        adminLoginOverlay.style.display = 'none';
+        renderAdminDashboard();
+        input.value = '';
+        console.log("🔓 Access Granted. Dashboard Opened.");
+    } else {
+        alert("❌ Incorrect password!");
+        input.value = '';
+        input.focus();
+    }
+};
+
+window.logoutAdmin = function() {
+    sessionStorage.removeItem('admin_session');
+    adminLoginOverlay.style.display = 'flex';
+    console.log("🔒 Dashboard Locked.");
 };
 
 window.closeAdmin = function() {
     adminModal.style.display = 'none';
 };
 
-function renderAdminFeedbacks() {
-    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-    if(feedbacks.length === 0) {
-        adminList.innerHTML = '<div class="empty-msg">No feedbacks found.</div>';
+window.switchDataSource = function(source) {
+    const localBtn = document.getElementById('toggleLocal');
+    const globalBtn = document.getElementById('toggleGlobal');
+    const setupInfo = document.getElementById('globalSetupInfo');
+    const statusBadge = document.getElementById('backendStatusBadge');
+
+    if(source === 'global') {
+        localBtn.style.background = 'none';
+        localBtn.style.color = '#aaa';
+        globalBtn.style.background = '#00ffd0';
+        globalBtn.style.color = '#000';
+        
+        if(!firebaseConfig) {
+            setupInfo.style.display = 'block';
+            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: OFFLINE';
+            statusBadge.className = 'backend-status status-offline';
+        } else {
+            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: LIVE';
+            statusBadge.className = 'backend-status status-online';
+        }
+        // Logic to fetch global stats would go here if firebaseConfig exists
+    } else {
+        globalBtn.style.background = 'none';
+        globalBtn.style.color = '#aaa';
+        localBtn.style.background = '#00ffd0';
+        localBtn.style.color = '#000';
+        setupInfo.style.display = 'none';
+        statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
+        statusBadge.className = 'backend-status status-offline';
+        renderAdminDashboard(); // Re-render for local
+    }
+};
+
+function renderAdminDashboard() {
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    const all = [...localFeedbacks, ...featuredFeedbacks];
+    
+    // --- RENDER INSIGHTS ---
+    const totalVisits = localStorage.getItem('stats_total_visits') || '0';
+    const totalTime = parseInt(localStorage.getItem('stats_total_time') || '0');
+    const avgTime = totalVisits > 0 ? (totalTime / totalVisits).toFixed(0) : 0;
+    const convRate = totalVisits > 0 ? ((localFeedbacks.length / totalVisits) * 100).toFixed(1) : 0;
+    
+    document.getElementById('insightVisits').innerText = totalVisits;
+    document.getElementById('insightTime').innerText = avgTime + 's';
+    document.getElementById('insightConv').innerText = convRate + '%';
+    
+    // Visit Trends (Last 7 Days)
+    const visitStats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
+    const trendContainer = document.getElementById('adminVisitTrend');
+    let trendHtml = '';
+    const dates = [];
+    for(let i=6; i>=0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        dates.push(d.toISOString().split('T')[0]);
+    }
+    
+    const maxVisits = Math.max(...dates.map(d => visitStats[d] || 0), 10);
+    dates.forEach(d => {
+        const val = visitStats[d] || 0;
+        const height = (val / maxVisits) * 100;
+        const label = d.split('-')[2]; // day only
+        trendHtml += `
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center;">
+                <div class="bar" style="height:${height}%; width:100%;" data-val="${val}"></div>
+                <div class="bar-label">${label}</div>
+            </div>`;
+    });
+    trendContainer.innerHTML = trendHtml;
+    
+    // Section Popularity
+    const sectionStats = JSON.parse(localStorage.getItem('stats_sections') || '{}');
+    const secContainer = document.getElementById('adminSectionStats');
+    let secHtml = '';
+    const sortedSections = Object.entries(sectionStats).sort((a,b) => b[1] - a[1]);
+    sortedSections.forEach(([name, count]) => {
+        secHtml += `
+            <div class="section-stat-item">
+                <span class="section-stat-name">${name.toUpperCase()}</span>
+                <span class="section-stat-count">${count} views</span>
+            </div>`;
+    });
+    secHtml = secHtml || '<div style="color:#444;">Scroll sections to see data...</div>';
+    secContainer.innerHTML = secHtml;
+
+    // --- RENDER TABLE ---
+    if(all.length === 0) {
+        adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No data found.</td></tr>';
         return;
     }
     
     let html = '';
-    feedbacks.forEach((f, index) => {
+    all.forEach((f, index) => {
+        const isFeatured = f.isFeatured ? "featured" : "local";
         html += `
-        <div class="feedback-item">
-            <div class="feedback-info">
-                <h5>${f.name} <span style="font-size:0.8rem;color:#666;font-weight:normal">(${new Date(f.timestamp).toLocaleDateString()})</span></h5>
-                <div class="feedback-rating">${'<i class="bi bi-star-fill"></i>'.repeat(f.rating)}</div>
-                <p>"${f.message}"</p>
-            </div>
-            <button class="delete-btn" onclick="deleteFeedback(${index})">Delete</button>
-        </div>
+        <tr id="adminRow-${isFeatured}-${index}">
+            <td style="font-weight:600; color:#fff;">${f.name} ${f.isFeatured ? '<br><span style="font-size:0.6rem; color:#00ffd0">FEATURED</span>' : ''}</td>
+            <td>${'<i class="bi bi-star-fill" style="color:#FFD700; font-size:0.8rem;"></i>'.repeat(f.rating)}</td>
+            <td style="font-size:0.9rem; line-height:1.4;">${f.message}</td>
+            <td class="admin-action-btns">
+                <button class="edit-btn" onclick="editReview('${isFeatured}', ${index})">Edit</button>
+                <button class="delete-btn" onclick="deleteReview('${isFeatured}', ${index})">Delete</button>
+            </td>
+        </tr>
         `;
     });
-    adminList.innerHTML = html;
+    adminTableBody.innerHTML = html;
 }
 
-window.deleteFeedback = function(index) {
-    if(confirm('Delete this feedback?')) {
-        FeedbackManager.delete(index);
-        renderAdminFeedbacks(); // Re-render admin list
+window.deleteReview = function(type, index) {
+    if(!confirm('Permanently delete this review from the dashboard?')) return;
+    
+    if(type === 'featured') {
+        featuredFeedbacks.splice(index, 1);
+    } else {
+        const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        localFeedbacks.splice(index, 1);
+        localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
+    }
+    
+    updateFeedbackSummary();
+    renderAdminDashboard();
+};
+
+window.editReview = function(type, index) {
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    const all = type === 'featured' ? featuredFeedbacks : localFeedbacks;
+    const review = all[index];
+    
+    const newMsg = prompt("Edit Feedback Message:", review.message);
+    if(newMsg !== null) {
+        review.message = newMsg;
+        if(type === 'local') {
+            localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
+        }
+        updateFeedbackSummary();
+        renderAdminDashboard();
     }
 };
 
 window.addEventListener('click', (e) => {
     if(e.target === adminModal) closeAdmin();
 });
+
+// Remove Legacy FeedbackManager
+if(window.FeedbackManager) delete window.FeedbackManager;
 
 
 // === STANDARD SCROLL LOGIC ===
@@ -813,15 +1108,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </script>
 </body>
-</html>
-
-
-
-
-
-
-
-
 
 
 
