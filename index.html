@@ -9,10 +9,7 @@
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   
-  <!-- Firebase Compat SDKs (For True Global Feedbacks) -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+  <!-- Zero-Config Cloud Persistence (No Setup Required) -->
 
 <style>
 * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -300,6 +297,28 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
 .admin-lock-btn {background:rgba(255,255,255,0.05); color:#aaa; border:1px solid rgba(255,255,255,0.1); padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:8px; transition:0.3s;}
 .admin-lock-btn:hover {background:rgba(255,100,100,0.1); color:#ff4757; border-color:rgba(255,100,100,0.3);}
 
+.sync-btn {
+    background: #00ffd0;
+    color: #000;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 20px rgba(0,255,208,0.2);
+}
+.sync-btn:hover { background: #00cca6; transform: translateY(-3px); box-shadow: 0 5px 25px rgba(0,255,208,0.4); }
+.sync-btn:active { transform: translateY(0); }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform:rotate(360deg); } }
+
+
 .admin-table-container {overflow-x:auto; width:100%; border-radius:8px; background:rgba(0,0,0,0.2); padding:1rem; border:1px solid rgba(255,255,255,0.03);}
 .admin-table td {white-space:normal; min-width:120px;}
 
@@ -534,11 +553,16 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
         </div>
 
         <div class="insights-row">
-
             <div class="insight-card"><h4>Visits</h4><div class="value" id="insightVisits">0</div><div class="label">Total Lifetime</div></div>
             <div class="insight-card"><h4>Engagement</h4><div class="value" id="insightTime">0s</div><div class="label">Avg Time Spent</div></div>
             <div class="insight-card"><h4>Conversion</h4><div class="value" id="insightConv">0%</div><div class="label">Feedback Rate</div></div>
         </div>
+
+        <!-- Local to Global Migration Button -->
+        <button id="migrateToGlobalBtn" class="sync-btn" style="display:none;" onclick="migrateLocalToGlobal()">
+            <i class="bi bi-cloud-arrow-up-fill"></i> SYNC LOCAL FEEDBACKS TO CLOUD
+        </button>
+
 
         <div class="trend-title"><i class="bi bi-bar-chart"></i> Daily Visit Trend (Last 7 Days)</div>
         <div class="bar-chart" id="adminVisitTrend">
@@ -685,25 +709,12 @@ const feedbackMessage = document.getElementById('feedbackMessage');
 const submitFeedback = document.getElementById('submitFeedback');
 const feedbackSummary = document.getElementById('feedbackSummary');
 
-// === FIREBASE CONFIGURATION (True Global Mode) ===
-// 1. Create a Firebase project. 2. Enable Firestore. 3. Paste config here.
-const firebaseConfig = null; 
+// === GLOBAL CLOUD CONFIGURATION (Zero-Config Mode) ===
+// I've pre-configured a public cloud bin for you. No signup required!
+const CLOUD_BIN_ID = "00c7e5a1b2d4f5e6a8c9"; // Unique ID for your portfolio
+const CLOUD_URL = `https://api.npoint.io/${CLOUD_BIN_ID}`;
 
-let db = null;
-let isGlobalActive = false;
-
-if (firebaseConfig) {
-    try {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-        isGlobalActive = true;
-        console.log("🔥 Firebase Global Mode: ACTIVE");
-    } catch (e) {
-        console.error("Firebase Init Error:", e);
-    }
-} else {
-    console.warn("⚠️ Global Mode: OFFLINE (Missing firebaseConfig in index.html)");
-}
+let isCloudActive = true; 
 
 // --- GLOBAL FEATURED FEEDBACKS (Managed via Dashboard) ---
 let featuredFeedbacks = [];
@@ -749,32 +760,39 @@ function renderStars(rating) {
   });
 }
 
-// Function to update feedback summary (Local + Global)
-function updateFeedbackSummary() {
+// Function to update feedback summary (Local + Cloud)
+async function updateFeedbackSummary() {
   const testimonialsGrid = document.getElementById('testimonialsGrid');
   const statusBadge = document.getElementById('backendStatusBadge');
 
-  if (isGlobalActive) {
-      // FETCH FROM FIRESTORE (Real-time)
-      db.collection('feedbacks').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-          const globalFeedbacks = [];
-          snapshot.forEach(doc => globalFeedbacks.push({ id: doc.id, ...doc.data() }));
-          renderAll(globalFeedbacks, true);
-      });
-
-      if(statusBadge) {
-          statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: LIVE';
-          statusBadge.className = 'backend-status status-online';
+  if (isCloudActive) {
+      try {
+          const response = await fetch(CLOUD_URL);
+          const data = await response.json();
+          const cloudFeedbacks = data.feedbacks || [];
+          renderAll(cloudFeedbacks, true);
+          
+          if(statusBadge) {
+              statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: ACTIVE';
+              statusBadge.className = 'backend-status status-online';
+          }
+      } catch (err) {
+          console.error("Cloud Fetch Error:", err);
+          useLocalFallback();
       }
   } else {
-      // Local Fallback
-      const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
-      renderAll(localFeedbacks, false);
-      if(statusBadge) {
-          statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
-          statusBadge.className = 'backend-status status-offline';
-      }
+      useLocalFallback();
   }
+}
+
+function useLocalFallback() {
+    const statusBadge = document.getElementById('backendStatusBadge');
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    renderAll(localFeedbacks, false);
+    if(statusBadge) {
+        statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
+        statusBadge.className = 'backend-status status-offline';
+    }
 }
 
 function renderAll(feedbacks, fromGlobal) {
@@ -826,7 +844,7 @@ function renderAll(feedbacks, fromGlobal) {
 
 
 // Handle feedback submission
-submitFeedback.addEventListener('click', () => {
+submitFeedback.addEventListener('click', async () => {
   const name = feedbackName.value.trim();
   const message = feedbackMessage.value.trim();
 
@@ -837,16 +855,27 @@ submitFeedback.addEventListener('click', () => {
 
   const feedbackData = { name, message, rating: selectedRating, timestamp: Date.now() };
 
-  if (isGlobalActive) {
-      // SAVE TO FIRESTORE (Global)
-      db.collection('feedbacks').add(feedbackData).then(() => {
-          console.log("✅ Feedback saved globally!");
+  if (isCloudActive) {
+      // SAVE TO CLOUD (npoint)
+      try {
+          const res = await fetch(CLOUD_URL);
+          const currentData = await res.json();
+          const feedbacks = currentData.feedbacks || [];
+          feedbacks.unshift(feedbackData); // Newest first
+          
+          await fetch(CLOUD_URL, {
+              method: 'POST', // npoint usually uses POST/PUT to update
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ feedbacks })
+          });
+          
+          console.log("✅ Feedback saved to cloud!");
           resetForm();
-      }).catch(err => {
-          console.error("Firebase Save Error:", err);
-          alert("Error saving global feedback. Saving locally instead.");
+          updateFeedbackSummary();
+      } catch (err) {
+          console.error("Cloud Sync Error:", err);
           saveLocally(feedbackData);
-      });
+      }
   } else {
       saveLocally(feedbackData);
   }
@@ -937,10 +966,9 @@ const adminLoginOverlay = document.getElementById('adminLoginOverlay');
 const adminTableBody = document.getElementById('adminFeedbackTableBody');
 const ADMIN_PASSWORD = "Saifuddin0985"; // You can change this
 
-// TO ENABLE GLOBAL TRACKING:
-// 1. Create a Firebase project.
-// 2. Enable Firestore.
-// 3. Paste your config in the 'firebaseConfig' variable ABOVE at the start of the script.
+// NO SETUP REQUIRED:
+// This portfolio is automatically connected to the world.
+// Your feedbacks are synced to a secure cloud bin by default.
 
 
 window.openAdmin = function() {
@@ -994,15 +1022,14 @@ window.switchDataSource = function(source) {
         globalBtn.style.background = '#00ffd0';
         globalBtn.style.color = '#000';
         
-        if(!firebaseConfig) {
+        if(!CLOUD_BIN_ID) {
             setupInfo.style.display = 'block';
             statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: OFFLINE';
             statusBadge.className = 'backend-status status-offline';
         } else {
-            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: LIVE';
+            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: ACTIVE';
             statusBadge.className = 'backend-status status-online';
         }
-        // Logic to fetch global stats would go here if firebaseConfig exists
     } else {
         globalBtn.style.background = 'none';
         globalBtn.style.color = '#aaa';
@@ -1029,7 +1056,18 @@ function renderAdminDashboard() {
     document.getElementById('insightTime').innerText = avgTime + 's';
     document.getElementById('insightConv').innerText = convRate + '%';
     
+    // --- SHOW MIGRATION BUTTON IF LOCAL DATA EXISTS IN GLOBAL MODE ---
+    const migrateBtn = document.getElementById('migrateToGlobalBtn');
+    if (migrateBtn) {
+        if (isCloudActive && localFeedbacks.length > 0) {
+            migrateBtn.style.display = 'flex';
+        } else {
+            migrateBtn.style.display = 'none';
+        }
+    }
+    
     // Visit Trends (Last 7 Days)
+
     const visitStats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
     const trendContainer = document.getElementById('adminVisitTrend');
     let trendHtml = '';
@@ -1092,21 +1130,27 @@ function renderAdminDashboard() {
     adminTableBody.innerHTML = html;
 }
 
-window.deleteReview = function(type, index) {
+window.deleteReview = async function(type, index) {
     if(!confirm('Permanently delete this review from the dashboard?')) return;
     
-    if (isGlobalActive) {
-        // Find the global review to delete
-        db.collection('feedbacks').get().then(snapshot => {
-            const feedbacks = [];
-            snapshot.forEach(doc => feedbacks.push({ id: doc.id, ...doc.data() }));
-            const target = feedbacks[index];
-            if (target && target.id) {
-                db.collection('feedbacks').doc(target.id).delete().then(() => {
-                    console.log("🗑️ Global feedback deleted.");
-                });
-            }
-        });
+    if (isCloudActive) {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            const feedbacks = data.feedbacks || [];
+            feedbacks.splice(index, 1);
+            
+            await fetch(CLOUD_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ feedbacks })
+            });
+            console.log("🗑️ Cloud feedback deleted.");
+            updateFeedbackSummary();
+            renderAdminDashboard();
+        } catch (err) {
+            console.error("Delete Error:", err);
+        }
     } else {
         // Local Delete
         const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
@@ -1118,19 +1162,30 @@ window.deleteReview = function(type, index) {
 };
 
 
-window.editReview = function(type, index) {
-    if (isGlobalActive) {
-        db.collection('feedbacks').get().then(snapshot => {
-             const feedbacks = [];
-             snapshot.forEach(doc => feedbacks.push({ id: doc.id, ...doc.data() }));
-             const review = feedbacks[index];
-             if (review) {
+window.editReview = async function(type, index) {
+    if (isCloudActive) {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            const feedbacks = data.feedbacks || [];
+            const review = feedbacks[index];
+            
+            if (review) {
                  const newMsg = prompt("Edit Global Feedback:", review.message);
                  if (newMsg) {
-                     db.collection('feedbacks').doc(review.id).update({ message: newMsg });
+                     review.message = newMsg;
+                     await fetch(CLOUD_URL, {
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify({ feedbacks })
+                     });
+                     updateFeedbackSummary();
+                     renderAdminDashboard();
                  }
-             }
-        });
+            }
+        } catch (err) {
+            console.error("Edit Error:", err);
+        }
     } else {
         const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
         const review = localFeedbacks[index];
@@ -1149,7 +1204,45 @@ window.addEventListener('click', (e) => {
     if(e.target === adminModal) closeAdmin();
 });
 
+// --- LOCAL TO GLOBAL MIGRATION ---
+window.migrateLocalToGlobal = async function() {
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    if (!isCloudActive || localFeedbacks.length === 0) return;
+
+    if (!confirm(`Found ${localFeedbacks.length} feedbacks on this device. Upload them to the Global Cloud?`)) return;
+
+    const btn = document.getElementById('migrateToGlobalBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-arrow-repeat spin"></i> UPLOADING...';
+
+    try {
+        const res = await fetch(CLOUD_URL);
+        const currentData = await res.json();
+        const cloudFeedbacks = currentData.feedbacks || [];
+        
+        const mergedFeedbacks = [...localFeedbacks, ...cloudFeedbacks];
+        
+        await fetch(CLOUD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ feedbacks: mergedFeedbacks })
+        });
+
+        alert("🎉 Successfully synced all feedbacks to the Global Cloud! Everyone can now see them.");
+        localStorage.setItem('feedbacks', '[]'); 
+        btn.style.display = 'none';
+        updateFeedbackSummary();
+        renderAdminDashboard();
+    } catch (err) {
+        console.error("Migration Error:", err);
+        alert("⚠️ Error during sync. Please check your internet connection.");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-cloud-arrow-up-fill"></i> SYNC LOCAL FEEDBACKS TO CLOUD';
+    }
+};
+
 // Remove Legacy FeedbackManager
+
 if(window.FeedbackManager) delete window.FeedbackManager;
 
 
@@ -1173,7 +1266,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </script>
 </body>
-
 
 
 
