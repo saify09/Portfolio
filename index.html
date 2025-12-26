@@ -111,6 +111,52 @@ section {padding:7rem 10%;position:relative;z-index:2;}
 .skill h4 {margin-bottom:0.6rem;text-shadow:0 0 6px #00ffd033;}
 .skill p {font-size:0.9rem;}
 
+/* Skills Badges */
+.skill-badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+.skill-badge, .badge-desc {
+    background: rgba(0, 255, 208, 0.05);
+    border: 1px solid rgba(0, 255, 208, 0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    color: #00ffd0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+.skill-badge:hover, .badge-desc:hover {
+    background: rgba(0, 255, 208, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 208, 0.2);
+    border-color: rgba(0, 255, 208, 0.5);
+    color: #fff;
+}
+.skill-badge i, .badge-desc i {
+    font-size: 1.1rem;
+    color: #00ffd0;
+}
+
 /* Projects */
 .project-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem;}
 .project {background:rgba(255,255,255,0.03); backdrop-filter:blur(10px); padding:2rem; border-radius:16px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 4px 30px rgba(0,0,0,0.1); text-align:left; transition:transform 0.3s,box-shadow 0.3s; opacity:0; transform:translateY(20px); animation:popIn 1.5s forwards;}
@@ -466,7 +512,7 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
             <i class="bi bi-patch-check-fill"></i>
             <div>
                 <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Saylani Mass IT</div>
-                Artificial intelligence & Data Science
+                Artificial Intelligence & Data Science
             </div>
         </a>
     </div>
@@ -476,17 +522,52 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
 
 <section id="skills" class="skills">
   <h3 class="section-title">Skills & Core Expertise</h3>
-  <div class="skill-grid">
-    <div class="skill" style="animation-delay:0s;"><h4>Python</h4><p>Pandas, NumPy, Scikit-learn</p></div>
-    <div class="skill" style="animation-delay:0.1s;"><h4>Machine Learning</h4><p>Supervised & Unsupervised Models</p></div>
-    <div class="skill" style="animation-delay:0.2s;"><h4>Deep Learning</h4><p>TensorFlow, OpenCV, PyTorch</p></div>
-    <div class="skill" style="animation-delay:0.3s;"><h4>Data Visualization</h4><p>Matplotlib, Seaborn, Plotly</p></div>
-    <div class="skill" style="animation-delay:0.4s;"><h4>MS Excel</h4><p>Identifying trends, patterns, and insights.</p></div>
-    <div class="skill" style="animation-delay:0.5s;"><h4>Tableau / Power BI</h4><p>Interactive dashboards & KPIs</p></div>
-    <div class="skill" style="animation-delay:0.6s;"><h4>Statistics & Probability</h4><p>Hypothesis testing, Bayesian Methods</p></div>
-    <div class="skill" style="animation-delay:0.8s;"><h4>NLP & Text Analytics</h4><p>Sentiment Analysis, Chatbots</p></div>
-    <div class="skill" style="animation-delay:0.9s;"><h4>AI & Automation</h4><p>ML Ops, AutoML, Python Automation</p></div>
-    <div class="skill" style="animation-delay:1.0s;"><h4>Django</h4><p>FastApi, Frontend</p></div>
+  <div class="skill-badges-container">
+    <!-- Group: Programming & Frameworks -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="fab fa-python"></i> Python</div>
+      <div class="badge-desc"><i class="bi bi-filetype-csv"></i> Pandas</div>
+      <div class="badge-desc"><i class="bi bi-grid-3x3"></i> NumPy</div>
+      <div class="badge-desc"><i class="bi bi-diagram-3"></i> Scikit-learn</div>
+      <div class="skill-badge"><i class="bi bi-braces"></i> Django</div>
+      <div class="badge-desc"><i class="bi bi-lightning-charge"></i> FastAPI</div>
+      <div class="badge-desc"><i class="bi bi-cloud-arrow-up"></i> REST APIs</div>
+    </div>
+
+    <!-- Group: AI & Machine Learning -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-cpu"></i> Machine Learning</div>
+      <div class="badge-desc"><i class="bi bi-check-circle"></i> Supervised & Unsupervised</div>
+      <div class="skill-badge"><i class="bi bi-gpu-card"></i> Deep Learning</div>
+      <div class="badge-desc"><i class="bi bi-layers"></i> TensorFlow</div>
+      <div class="badge-desc"><i class="bi bi-boxes"></i> Keras</div>
+      <div class="badge-desc"><i class="bi bi-eye"></i> OpenCV</div>
+      <div class="badge-desc"><i class="bi bi-fire"></i> PyTorch</div>
+    </div>
+
+    <!-- Group: Data Analysis & Visualization -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-graph-up-arrow"></i> Data Visualization</div>
+      <div class="badge-desc"><i class="bi bi-palette"></i> Matplotlib</div>
+      <div class="badge-desc"><i class="bi bi-droplet"></i> Seaborn</div>
+      <div class="badge-desc"><i class="bi bi-activity"></i> Plotly</div>
+      <div class="skill-badge"><i class="bi bi-table"></i> MS Excel</div>
+      <div class="badge-desc"><i class="bi bi-database-gear"></i> Data Modeling</div>
+      <div class="badge-desc"><i class="bi bi-calculator-fill"></i> Advanced Formulas</div>
+      <div class="skill-badge"><i class="bi bi-bar-chart-fill"></i> Tableau / Power BI</div>
+    </div>
+
+    <!-- Group: Advanced Topics -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-calculator"></i> Statistics & Probability</div>
+      <div class="badge-desc"><i class="bi bi-percent"></i> Bayesian Methods</div>
+      <div class="skill-badge"><i class="bi bi-chat-left-text"></i> NLP & Text Analytics</div>
+      <div class="badge-desc"><i class="bi bi-emoji-smile"></i> Sentiment Analysis</div>
+      <div class="badge-desc"><i class="bi bi-chat-dots"></i> Chatbots</div>
+      <div class="skill-badge"><i class="bi bi-robot"></i> AI & Automation</div>
+      <div class="badge-desc"><i class="bi bi-infinity"></i> MLOps</div>
+      <div class="badge-desc"><i class="bi bi-magic"></i> AutoML</div>
+    </div>
   </div>
 </section>
 
@@ -1320,7 +1401,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </script>
 </body>
-
 
 
 
