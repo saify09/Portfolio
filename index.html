@@ -630,7 +630,7 @@ footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:
     <span class="close-modal" id="closeModal">&times;</span>
     <iframe src="https://drive.google.com/file/d/1EBz4DIsMuiRqxiWJd5V15cUVNOY1wV0F/preview"></iframe>
 
-    <a href="https://drive.google.com/file/d/1EBz4DIsMuiRqxiWJd5V15cUVNOY1wV0F/view?usp=sharing" class="download-btn">Download Resume</a>
+    <a href="https://drive.google.com/file/d/1EBz4DIsMuiRqxiWJd5V15cUVNOY1wV0F/view" class="download-btn">Download Resume</a>
   </div>
 </div>
 
@@ -801,6 +801,21 @@ function useLocalFallback() {
     }
 }
 
+// Helper to get HTML for stars
+function getStarsHTML(rating) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i - 0.25) {
+      html += '<i class="bi bi-star-fill"></i>';
+    } else if (rating >= i - 0.75) {
+      html += '<i class="bi bi-star-half"></i>';
+    } else {
+      html += '<i class="bi bi-star"></i>';
+    }
+  }
+  return html;
+}
+
 function renderAll(feedbacks, fromGlobal) {
   const total = feedbacks.length;
   const avg = total ? feedbacks.reduce((a, f) => a + (f.rating || 0), 0) / total : 0;
@@ -810,13 +825,7 @@ function renderAll(feedbacks, fromGlobal) {
   if(document.getElementById('statAvg')) document.getElementById('statAvg').innerText = avg.toFixed(1);
 
   // Summary Card Logic
-  const fullStars = Math.floor(avg);
-  const halfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-  let starsHTML = '';
-  for (let i = 0; i < fullStars; i++) starsHTML += '<i class="bi bi-star-fill"></i>';
-  if (halfStar) starsHTML += '<i class="bi bi-star-half"></i>';
-  for (let i = 0; i < emptyStars; i++) starsHTML += '<i class="bi bi-star"></i>';
+  const starsHTML = getStarsHTML(avg);
 
   feedbackSummary.innerHTML = `
     <div class="feedback-summary-text">${total} Total Feedback${total !== 1 ? 's' : ''}</div>
@@ -834,7 +843,7 @@ function renderAll(feedbacks, fromGlobal) {
           displayFeedbacks.forEach(f => {
               htmlContent += `
               <div class="testimonial-card">
-                <div class="testimonial-stars">${'<i class="bi bi-star-fill"></i>'.repeat(f.rating)}</div>
+                <div class="testimonial-stars">${getStarsHTML(f.rating)}</div>
                 <p class="testimonial-text">"${f.message}"</p>
                 <div class="testimonial-author">~ ${f.name}</div>
               </div>`;
@@ -1149,7 +1158,7 @@ async function renderAdminDashboard() {
         html += `
         <tr id="adminRow-${adminViewSource}-${index}">
             <td style="font-weight:600; color:#fff;">${f.name}</td>
-            <td>${'<i class="bi bi-star-fill" style="color:#FFD700; font-size:0.8rem;"></i>'.repeat(f.rating)}</td>
+            <td>${getStarsHTML(f.rating)}</td>
             <td style="font-size:0.9rem; line-height:1.4;">${f.message}</td>
             <td class="admin-action-btns">
                 <button class="edit-btn" onclick="editReview('${adminViewSource}', ${index})">Edit</button>
@@ -1297,8 +1306,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </script>
 </body>
-
-
 
 
 
