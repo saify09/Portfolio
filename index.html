@@ -1,543 +1,1463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Professional portfolio of Saifuddin Hanif - Data Scientist, ML Engineer, and Full Stack Developer." />
-  <title>Saifuddin Hanif | Senior Full Stack & Data Professional</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #080b12;
-      --bg-elev: #101725;
-      --card: #111a2b;
-      --text: #eaf0ff;
-      --muted: #9eb0d3;
-      --brand: #3dd9c5;
-      --brand-2: #58a6ff;
-      --border: rgba(145, 167, 209, 0.2);
-      --danger: #ff6b81;
-      --success: #53d769;
-      --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saifuddin Hanif | Data Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <!-- Zero-Config Cloud Persistence (No Setup Required) -->
 
-    * { box-sizing: border-box; }
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html {scroll-behavior:smooth;font-size:16px;}
+body {background:#050505;color:#f0f0f0;overflow-x:hidden;line-height:1.6;}
 
-    html, body {
-      margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top right, #12203b 0%, var(--bg) 40%);
-      color: var(--text);
-      scroll-behavior: smooth;
-    }
+/* Typography */
+h1 {font-size:1.6rem;font-weight:700;letter-spacing:1px;font-family:'Trebuchet MS';}
+h2 {font-size:3.2rem;color:#00ffd0;text-shadow:0 0 8px #00ffd033;}
+h3.section-title {font-size:2.4rem;color:#00ffd0;text-align:center;margin-bottom:2.5rem;}
+h4 {font-size:1.25rem;font-weight:600;color:#00ffd0;}
+p {color:#bbb;font-size:1rem;}
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+/* Header */
+header {position:fixed;top:0;left:0;width:100%;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 7%;background:rgba(5,5,5,0.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,255,204,0.08); transition: padding 0.3s;}
+.logo-link {text-decoration: none; color: inherit; display: flex; align-items: center;}
+.header-logo {height: 40px; width: auto; margin-right: 12px; vertical-align: middle; border-radius: 4px; transition: transform 0.3s;}
+.logo-link:hover .header-logo {transform: scale(1.1);}
+header h1 {font-size: 1.5rem; display: flex; align-items: center; margin: 0;}
+nav {display: flex; align-items: center;}
+nav a {margin-left:1.5rem;color:#ccc;transition:0.3s;font-weight:500;text-decoration:none; white-space: nowrap;}
+nav a:hover, nav a.active {color:orangered;}
+.resume-btn {background:linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%); color:#000; padding:0.6rem 1.2rem; border-radius:30px; font-weight:600; margin-left:1.5rem; box-shadow:0 0 12px rgba(0,255,204,.2); transition:.3s; flex-shrink: 0;}
+.resume-btn:hover {transform:translateY(-3px); box-shadow:0 0 25px rgba(0,255,204,.5);}
 
-    .container { width: min(1120px, 92%); margin: 0 auto; }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      background: rgba(8, 11, 18, 0.8);
-    }
+/* Hero */
+.hero {min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;background:radial-gradient(circle at top left,#0f0f0f,#050505);overflow:hidden;}
+canvas#particles {position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+.hero-content {position:relative;z-index:2;max-width:800px;animation:fadeIn 1.5s ease;}
+.hero p {margin-top:1rem;font-size:1.1rem;color:#aaa;}
+.hero-buttons {margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.hero-buttons a {text-decoration:none; background:linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%); color:#000; padding:1rem 2.5rem; border-radius:40px; font-weight:600; transition:.3s; box-shadow:0 0 15px rgba(0,255,204,.2);}
+.hero-buttons a:hover {transform:translateY(-4px); box-shadow:0 0 30px rgba(0,255,204,.5);}
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    border: 3px solid #00ffd0;
+    box-shadow: 0 0 30px rgba(0,255,208,0.3);
+    object-fit: cover;
+    animation: fadeIn 2s ease;
+}
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      gap: 1rem;
-    }
 
-    .brand {
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
 
-    .brand span { color: var(--brand); }
+/* Sections */
+section {padding:7rem 10%;position:relative;z-index:2;}
+/* About Section Premium */
+.about-container {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+.about-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: linear-gradient(to bottom, #00C9FF, #92FE9D);
+}
+.about p {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+.cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    color: #00ffd0;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.cert-badge:hover {
+    background: rgba(0, 255, 204, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+    color: #fff;
+}
+.cert-badge i { font-size: 1.5rem; }
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-    }
 
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+/* Skills */
+.skills {background:#0b0b0b;text-align:center;}
+.skill-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-top:3rem;}
+.skill {background:rgba(255,255,255,0.03); backdrop-filter:blur(10px); padding:2rem; border-radius:16px; text-align:center; border:1px solid rgba(255,255,255,0.1); box-shadow:0 4px 30px rgba(0,0,0,0.1); opacity:0; transform:translateY(20px); animation:popIn 1.5s forwards;}
+.skill:hover {transform:translateY(-5px); border-color:rgba(0,255,204,0.5); box-shadow:0 0 20px rgba(0,255,204,0.2), inset 0 0 20px rgba(0,255,204,0.05);}
 
-    .nav-links a:hover,
-    .nav-links a:focus-visible { color: var(--brand); }
+.skill h4 {margin-bottom:0.6rem;text-shadow:0 0 6px #00ffd033;}
+.skill p {font-size:0.9rem;}
 
-    .btn {
-      border: 1px solid transparent;
-      border-radius: 999px;
-      padding: 0.72rem 1.25rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-    }
+/* Skills Badges */
+.skill-badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+.skill-badge, .badge-desc {
+    background: rgba(0, 255, 208, 0.05);
+    border: 1px solid rgba(0, 255, 208, 0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    color: #00ffd0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+.skill-badge:hover, .badge-desc:hover {
+    background: rgba(0, 255, 208, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 208, 0.2);
+    border-color: rgba(0, 255, 208, 0.5);
+    color: #fff;
+}
+.skill-badge i, .badge-desc i {
+    font-size: 1.1rem;
+    color: #00ffd0;
+}
 
-    .btn-primary {
-      background: linear-gradient(125deg, var(--brand), var(--brand-2));
-      color: #071224;
-      box-shadow: var(--shadow);
-    }
+/* Projects */
+.project-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem;}
+.project {background:rgba(255,255,255,0.03); backdrop-filter:blur(10px); padding:2rem; border-radius:16px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 4px 30px rgba(0,0,0,0.1); text-align:left; transition:transform 0.3s,box-shadow 0.3s; opacity:0; transform:translateY(20px); animation:popIn 1.5s forwards;}
+.project:hover {transform:translateY(-5px); border-color:rgba(0,255,204,0.5); box-shadow:0 0 25px rgba(0,255,204,0.2), inset 0 0 20px rgba(0,255,204,0.05);}
 
-    .btn-primary:hover { transform: translateY(-2px); }
+.project h4 {margin-bottom:0.8rem;}
+.project p {margin-bottom:1rem;}
+.project a {color:#00ffd0; font-weight:600; text-decoration:none; display:inline-block; margin-top:0.5rem;}
+.project a:hover {text-decoration:none; color:#fff; text-shadow:0 0 8px #00ffd0;}
 
-    .btn-ghost {
-      border-color: var(--border);
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.02);
-    }
 
-    .hero {
-      padding: 5rem 0 3.5rem;
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: 1.3fr 1fr;
-      align-items: center;
-    }
 
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 1.15;
-      margin: 0;
-    }
+/* Testimonials */
+.testimonials-grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; margin-top:3rem;}
+.testimonial-card {background:rgba(255,255,255,0.03); backdrop-filter:blur(10px); padding:1.5rem; border-radius:16px; border:1px solid rgba(255,255,255,0.1); position:relative; overflow:hidden; box-shadow:0 4px 30px rgba(0,0,0,0.1);}
+.testimonial-card::before {content:'"'; position:absolute; top:-10px; right:10px; font-size:4rem; color:rgba(0,255,204,0.1); font-family:serif;}
+.testimonial-stars {color:#FFD700; margin-bottom:0.8rem;}
+.testimonial-text {font-style:italic; color:#ddd; margin-bottom:1rem; font-size:0.95rem;}
+.testimonial-author {font-weight:600; color:#00ffd0; text-align:right;}
 
-    .hero p {
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin: 1.1rem 0 1.8rem;
-    }
+/* Contact */
+.contact {text-align:center;margin-top:4rem;}
+.contact p {color:#bbb;margin-bottom:2rem;}
+.social-icons {display:flex;justify-content:center;gap:2rem;margin-top:2rem;}
+.social {font-size:2rem;color:#00ffd0;text-decoration:none;border:2px solid rgba(0,255,204,0.15);border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(0,255,204,0.08);background:radial-gradient(circle,rgba(0,255,204,0.05),rgba(0,0,0,0.7));transition:all 0.3s ease;}
+.social:hover {color:#fff;border-color:#00ffd0;box-shadow:0 0 20px rgba(0,255,204,0.3),0 0 8px rgba(0,255,204,0.2) inset;transform:translateY(-3px) scale(1.05);}
+.social.linkedin:hover {color:#0A66C2;border-color:#0A66C2;}
+.social.github:hover {color:#fff;border-color:#fff;}
+.social.email:hover {color:#ff5c5c;border-color:#ff5c5c;}
+.social.twitter:hover {color:#1DA1F2;border-color:#1DA1F2;}
 
-    .hero-card,
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(20, 31, 52, 0.95), rgba(15, 22, 37, 0.95));
-      box-shadow: var(--shadow);
-      padding: 1.2rem;
-    }
+/* === FEEDBACK SECTION STYLING === */
+#feedback-section {
+  text-align: center;
+  margin-top: 2rem;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.9rem;
-      margin-top: 1rem;
-    }
+.feedback-btn {
+  background: linear-gradient(45deg,#00ffd0,#0077ff);
+  color: #000;
+  padding: 0.7rem 1.8rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 12px rgba(0,255,204,0.2);
+  transition: 0.3s;
+}
+.feedback-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0,255,204,0.35);
+}
 
-    .metric {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.8rem;
-    }
+#feedbackFormContainer {
+  margin-top: 15px;
+}
 
-    .metric .value { font-size: 1.5rem; font-weight: 700; color: var(--brand); }
-    .metric .label { color: var(--muted); font-size: 0.86rem; }
+#feedbackFormContainer input,
+#feedbackFormContainer textarea {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0.5rem auto;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,255,204,0.2);
+  background: #111;
+  color: #f0f0f0;
+  font-size: 1rem;
+}
 
-    section { padding: 2.8rem 0; }
+#feedbackFormContainer textarea {
+  height: 80px;
+  resize: vertical;
+}
 
-    h2 {
-      font-size: clamp(1.55rem, 3vw, 2.3rem);
-      margin: 0 0 1rem;
-    }
+.submit-btn {
+  background: linear-gradient(45deg,#00ffd0,#0077ff);
+  color: #000;
+  padding: 0.6rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,255,204,0.2);
+  transition: 0.3s;
+}
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,255,204,0.3);
+}
 
-    .subtitle {
-      color: var(--muted);
-      margin-bottom: 1.8rem;
-    }
+/* Star rating */
+.star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+  color: #00ffd0;
+  cursor: pointer;
+}
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
+.star-rating i {
+  transition: transform 0.2s, color 0.2s;
+}
+.star-rating i:hover {
+  transform: scale(1.2);
+}
 
-    .project h3,
-    .faq h3 { margin-top: 0; }
+/* Feedback summary */
+.feedback-summary {
+  margin-top: 15px;
+  font-size: 1.6rem;
+  color: #00ffd0;
+}
 
-    .stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 0.8rem;
-    }
+@media (max-width: 480px) {
+  .star-rating {
+    font-size: 1.4rem;
+    gap: 5px;
+  }
+  .feedback-btn, .submit-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  #feedbackFormContainer input,
+  #feedbackFormContainer textarea {
+    max-width: 90%;
+  }
+}
 
-    .tag {
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
+/* Footer */
+footer {text-align:center;padding:2rem;color:#666;background:#060606;border-top:1px solid rgba(255,255,255,.05);}
 
-    .analytics-wrap {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 1rem;
-    }
+/* Modal */
+.modal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);justify-content:center;align-items:center;z-index:2000;}
+.modal-content {background:rgba(20,20,20,0.9);border:1px solid rgba(0,255,204,0.15);border-radius:12px;padding:1.5rem;position:relative;width:90%;max-width:900px;height:80%;box-shadow:0 0 20px rgba(0,255,204,0.15);}
+.modal-content iframe {width:100%;height:90%;border:none;border-radius:8px;}
+.close-modal {position:absolute;top:10px;right:15px;font-size:1.5rem;color:#00ffd0;cursor:pointer;}
+.download-btn {display:inline-block;margin-top:1rem;background:linear-gradient(45deg,#00ffd0,#0077ff);color:#000;padding:0.7rem 1.5rem;border-radius:25px;font-weight:600;transition:.3s;}
+.download-btn:hover {box-shadow:0 0 15px rgba(0,255,204,.3);}
 
-    .chart {
-      height: 220px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      padding: 1rem;
-      display: flex;
-      align-items: end;
-      gap: 0.55rem;
-      background: rgba(255, 255, 255, 0.02);
-    }
+/* Admin Dashboard Premium */
+#adminModal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,5,0.98); backdrop-filter:blur(15px); justify-content:center; align-items:center; z-index:9999; animation:fadeIn 0.4s ease;}
+.admin-panel {background:#111; border:1px solid rgba(0,255,204,0.2); border-radius:16px; width:95%; max-width:1100px; height:90vh; display:flex; flex-direction:column; box-shadow:0 0 50px rgba(0,255,204,0.1); position:relative; overflow:hidden;}
+.admin-header {padding:1.5rem 2rem; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; background:#181818; border-radius:16px 16px 0 0;}
+.admin-header h2 {margin:0; font-size:1.8rem; color:#00ffd0; letter-spacing:1px;}
+.admin-stats {display:flex; gap:2rem; margin-right:3rem;}
+.stat-item {text-align:center;}
+.stat-value {font-size:1.2rem; font-weight:700; color:#fff;}
+.stat-label {font-size:0.7rem; color:#666; text-transform:uppercase;}
+.admin-body {padding:2rem; overflow-y:auto; flex:1; scroll-behavior:smooth;}
+.admin-table {width:100%; border-collapse:collapse;}
+.admin-table th {text-align:left; padding:1rem; border-bottom:2px solid #222; color:#00ffd0; font-size:0.85rem; text-transform:uppercase;}
+.admin-table td {padding:1rem; border-bottom:1px solid #222; vertical-align:top; color:#ccc;}
+.admin-action-btns {display:flex; gap:0.5rem;}
+.edit-btn {background:#0077ff; color:#fff; border:none; padding:0.4rem 0.8rem; border-radius:5px; cursor:pointer; font-size:0.8rem; transition:0.3s;}
+.edit-btn:hover {background:#0055cc;}
+.delete-btn {background:#ff4757; color:#fff; border:none; padding:0.4rem 0.8rem; border-radius:5px; cursor:pointer; font-size:0.8rem; transition:0.3s;}
+.delete-btn:hover {background:#ff2e44;}
 
-    .bar {
-      flex: 1;
-      border-radius: 8px 8px 2px 2px;
-      background: linear-gradient(180deg, var(--brand-2), var(--brand));
-      position: relative;
-      min-width: 30px;
-    }
+/* Insights UI Components */
+.insights-row {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; margin-bottom:2rem;}
+.insight-card {background:#1a1a1a; padding:1.5rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); text-align:center;}
+.insight-card h4 {margin:0 0 0.5rem 0; color:#00ffd0; font-size:1.1rem;}
+.insight-card .value {font-size:2rem; font-weight:800; color:#fff;}
+.insight-card .label {font-size:0.75rem; color:#666; text-transform:uppercase; margin-top:0.3rem;}
 
-    .bar::after {
-      content: attr(data-value);
-      position: absolute;
-      top: -1.4rem;
-      font-size: 0.75rem;
-      width: 100%;
-      text-align: center;
-      color: var(--muted);
-    }
+.trend-container {margin-top:2rem;}
+.trend-title {color:#00ffd0; font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:10px;}
+.bar-chart {display:flex; align-items:flex-end; gap:8px; height:150px; padding:10px; background:rgba(255,255,255,0.02); border-radius:8px;}
+.bar {background:linear-gradient(to top, #00C9FF, #92FE9D); min-width:30px; border-radius:4px 4px 0 0; position:relative; cursor:pointer; transition:0.3s;}
+.bar:hover {filter:brightness(1.2); transform:scaleX(1.1);}
+.bar::after {content:attr(data-val); position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem; color:#fff;}
+.bar-label {font-size:0.6rem; color:#444; margin-top:5px; text-align:center;}
 
-    .faq details {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 0.65rem;
-      background: rgba(255, 255, 255, 0.02);
-    }
+.popular-sections {margin-top:2rem;}
+.section-stat-item {display:flex; justify-content:space-between; align-items:center; padding:0.8rem; background:rgba(255,255,255,0.03); border-radius:8px; margin-bottom:0.5rem;}
+.section-stat-name {font-weight:600; font-size:0.9rem;}
+.section-stat-count {color:#00ffd0; font-weight:700;}
 
-    .faq summary {
-      cursor: pointer;
-      font-weight: 600;
-      list-style: none;
-    }
+/* Admin Interactive Elements */
+.admin-lock-btn {background:rgba(255,255,255,0.05); color:#aaa; border:1px solid rgba(255,255,255,0.1); padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; gap:8px; transition:0.3s;}
+.admin-lock-btn:hover {background:rgba(255,100,100,0.1); color:#ff4757; border-color:rgba(255,100,100,0.3);}
 
-    .faq summary::-webkit-details-marker { display: none; }
+.sync-btn {
+    background: #00ffd0;
+    color: #000;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 20px rgba(0,255,208,0.2);
+}
+.sync-btn:hover { background: #00cca6; transform: translateY(-3px); box-shadow: 0 5px 25px rgba(0,255,208,0.4); }
+.sync-btn:active { transform: translateY(0); }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform:rotate(360deg); } }
 
-    .faq p { color: var(--muted); margin: 0.65rem 0 0; }
 
-    form {
-      display: grid;
-      gap: 0.8rem;
-    }
+.admin-table-container {overflow-x:auto; width:100%; border-radius:8px; background:rgba(0,0,0,0.2); padding:1rem; border:1px solid rgba(255,255,255,0.03);}
+.admin-table td {white-space:normal; min-width:120px;}
 
-    input, textarea {
-      width: 100%;
-      background: #0d1423;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.8rem 0.9rem;
-      color: var(--text);
-      font: inherit;
-    }
+/* Admin Login Screen - FULL SCREEN MODAL */
+#adminLoginOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(5,5,5,0.98);
+    display: none; /* Controlled by JS */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000; /* Higher than everything */
+    backdrop-filter: blur(25px);
+}
+.login-card {
+    background: rgba(255,255,255,0.03);
+    padding: 3.5rem;
+    border-radius: 24px;
+    border: 1px solid rgba(0,255,208,0.2);
+    text-align: center;
+    box-shadow: 0 0 60px rgba(0,255,208,0.1);
+    max-width: 420px;
+    width: 90%;
+    animation: fadeInScale 0.4s ease;
+}
+@keyframes fadeInScale {
+    from { opacity:0; transform:scale(0.9); }
+    to { opacity:1; transform:scale(1); }
+}
+.login-card h3 { color: #fff; margin-bottom: 2rem; font-size: 1.5rem; letter-spacing: 3px; font-weight: 700; color: #00ffd0;}
+.login-card input {
+    width: 100%;
+    padding: 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: 0.3s;
+}
+.login-card input:focus { border-color: #00ffd0; background: rgba(0,255,208,0.05); outline: none; }
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #00ffd0;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+.login-btn:hover { background: #00cca6; transform: translateY(-3px); }
 
-    textarea { min-height: 120px; resize: vertical; }
 
-    .form-msg { font-size: 0.9rem; min-height: 1.2rem; }
-    .ok { color: var(--success); }
-    .err { color: var(--danger); }
+/* Backend Status Badge */
+.backend-status {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex; align-items:center; gap:8px;
+}
+.status-offline { background: rgba(255,100,100,0.1); color: #ff4d4d; border: 1px solid rgba(255,100,100,0.3);}
+.status-online { background: rgba(0,255,150,0.1); color: #00ff96; border: 1px solid rgba(0,255,150,0.3);}
 
-    footer {
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      padding: 1.2rem 0 2rem;
-      text-align: center;
-      font-size: 0.88rem;
-    }
+/* Admin Animations */
 
-    @media (max-width: 900px) {
-      .hero, .analytics-wrap, .grid-3 { grid-template-columns: 1fr; }
-      .nav { align-items: flex-start; }
-    }
-  </style>
+
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+@keyframes fadeIn {from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+@keyframes popIn {to{opacity:1;transform:translateY(0);}}
+
+/* Responsive */
+@media (max-width:768px){
+  html{font-size:14px;}
+  h3.section-title{font-size:1.8rem;}
+  header {padding: 0.8rem 5%;}
+  header h1 {font-size: 1.2rem;}
+  .header-logo {height: 35px; margin-right: 8px;}
+}
+@media (max-width:600px){
+  header {padding: 0.8rem 15px; flex-direction: column; gap: 10px; height: auto; position: fixed;}
+  .hero {padding-top: 160px;}
+  header h1 {font-size: 1.1rem;}
+  .header-logo {height: 28px; margin-right: 6px;}
+  nav {flex-wrap: wrap; justify-content: center; gap: 6px;}
+  nav a {font-size:0.8rem; margin: 2px 5px;}
+  .resume-btn {margin: 5px 0 0 0; padding: 0.4rem 1rem; font-size: 0.8rem;}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a class="brand" href="#home">Saifuddin<span>Hanif</span></a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#analytics">Analytics</a>
-        <a href="#faq">FAQ</a>
-        <a class="btn btn-primary" href="#contact">Book a Call</a>
-      </nav>
+
+<header>
+  <a href="#home" class="logo-link">
+    <h1><img src="https://drive.google.com/thumbnail?id=16hbsKYcrTr6Ut_5zx5L8h9bDHr_Ic_M_&sz=w200" alt="Logo" class="header-logo"> Saifuddin Hanif</h1>
+  </a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="resume-btn" id="openResume">Resume</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-content">
+    <img src="data:image/jpeg;base64,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" alt="Saifuddin Hanif" class="profile-pic" />
+    <h2>Turning Data into Intelligence</h2>
+
+    <p>Hi, I'm <b>Saifuddin Hanif</b>, I believe that data is a story waiting to be told clearly, and code is the language we use to tell it.</p>
+    <div class="hero-buttons">
+      <a href="#projects">Explore Projects</a>
+      <a href="#" id="openResume2">View Resume</a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main id="home" class="container">
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <h1 id="hero-title">Senior Full Stack Developer & Data Strategist Delivering Business-Grade Digital Products</h1>
-        <p>
-          I design and ship high-performance systems spanning modern front-end experiences,
-          robust APIs, analytics pipelines, and AI-driven intelligence layers. Built for scale,
-          reliability, and measurable ROI.
-        </p>
-        <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
-          <a class="btn btn-primary" href="#projects">View Case Studies</a>
-          <a class="btn btn-ghost" href="#contact">Discuss Your Project</a>
+<section id="about" class="about">
+  <div class="about-container">
+    <h3 class="section-title">About Me</h3>
+    <p>
+      I am a Data Scientist, ML Engineer, and Full-Stack Developer who believes that the true value of technology lies in its ability to provide clarity. My professional identity is built on a unique duality: the pedagogical precision of an educator and the systematic rigor of a data scientist. I don't just build models; I translate intricate systems into actionable strategies that empower decision-makers.
+    </p>
+    <p>
+      My journey began in education, where I mastered the art of simplifying the complex. This experience instilled in me a "human-first" approach to data—the ability to foster critical thinking, facilitate collaborative progress, and ensure that technical insights are accessible to diverse audiences. Today, this foundation informs my data practice, allowing me to bridge the gap between back-end complexity and front-end utility.
+    </p>
+    <p>
+      My journey began in education, where I mastered the art of simplifying the complex. This experience instilled in me a "human-first" approach to data—the ability to foster critical thinking, facilitate collaborative progress, and ensure that technical insights are accessible to diverse audiences. Today, this foundation informs my data practice, allowing me to bridge the gap between back-end complexity and front-end utility.
+    </p>
+    <p>
+      To complement my analytical mindset, I have undergone rigorous technical validation through world-class institutions:
+    </p>
+    <p>
+      <b>Google Career Certification:</b> Mastering the end-to-end data lifecycle, from cleaning to visualization.
+    </p>
+    <p>
+      <b>Cisco:</b> Developing a deep understanding of the networking infrastructure that powers modern data systems.
+    </p>
+    <p>
+      <b>SMIT (Saylani Mass IT):</b> Honing advanced software development and data science skills in an intensive, competitive environment.
+    </p>
+    <p>
+      My recent work as a Full Stack Developer and ML Engineer allowed me to apply theoretical knowledge to high-stakes, real-world environments:
+    </p>
+    <p>
+      <b>Prism Group Consulting:</b> I functioned at the intersection of development and intelligence, architecting full-stack solutions and integrating Machine Learning models to drive business insights.
+    </p>
+    <p>
+      <b>HexSoftwares:</b> I focused on the practical application of Python-based predictive modeling and software architecture, ensuring that every line of code served a strategic purpose.
+    </p>
+    <p>
+      I am driven by a systematic curiosity. Whether I am deploying a neural network, designing a dashboard in Tableau, or building a responsive web application in Python, I apply meticulous attention to detail and a relentless pursuit of innovation. I thrive in collaborative environments where I can synthesize raw data into the "why" behind the "what."
+    </p>
+    <div style="text-align:center; margin-top:2.5rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;">
+        <h4 style="margin-bottom:1.5rem; color:#fff; font-weight:400; letter-spacing:1px;">LATEST CERTIFICATION</h4>
+        <a href="https://coursera.org/verify/professional-cert/LWL010CMK365" class="cert-badge" target="_blank">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+                <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Google Professional Certificate</div>
+                Advanced Data Analytics
+            </div>
+        </a>
+        <a href="https://coursera.org/verify/specialization/8MEYUTI9ET3H" class="cert-badge" target="_blank">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+                <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Google Professional Certificate</div>
+                Google Prompting Essentials
+            </div>
+        </a>
+        <a href="https://drive.google.com/file/d/1Sr5mlw_ubTYqu2UgD_himFoE7YghgNZc/view?usp=sharing" class="cert-badge" target="_blank">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+                <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Cisco Networking Academy</div>
+                Python Essentials 1 & 2
+            </div>
+        </a>
+        <a href="#" class="cert-badge" target="_blank">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+                <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Saylani Mass IT</div>
+                Artificial Intelligence & Data Science
+            </div>
+        </a>
+        <a href="https://drive.google.com/file/d/1b17g6vauPwHvmlPjK_K2zYqQ6HyXuywP/view?usp=sharing" class="cert-badge" target="_blank">
+            <i class="bi bi-patch-check-fill"></i>
+            <div>
+                <div style="font-size:0.8rem; color:#aaa; font-weight:normal;">Hex Softwares</div>
+                Data Science Intern
+            </div>
+        </a>
+    </div>
+  </div>
+</section>
+
+
+<section id="skills" class="skills">
+  <h3 class="section-title">Skills & Core Expertise</h3>
+  <div class="skill-badges-container">
+    <!-- Group: Programming & Frameworks -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="fab fa-python"></i> Python</div>
+      <div class="badge-desc"><i class="bi bi-filetype-csv"></i> Pandas</div>
+      <div class="badge-desc"><i class="bi bi-grid-3x3"></i> NumPy</div>
+      <div class="badge-desc"><i class="bi bi-diagram-3"></i> Scikit-learn</div>
+      <div class="skill-badge"><i class="bi bi-braces"></i> Django</div>
+      <div class="badge-desc"><i class="bi bi-lightning-charge"></i> FastAPI</div>
+      <div class="badge-desc"><i class="bi bi-cloud-arrow-up"></i> REST APIs</div>
+    </div>
+
+    <!-- Group: AI & Machine Learning -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-cpu"></i> Machine Learning</div>
+      <div class="badge-desc"><i class="bi bi-check-circle"></i> Supervised & Unsupervised</div>
+      <div class="skill-badge"><i class="bi bi-gpu-card"></i> Deep Learning</div>
+      <div class="badge-desc"><i class="bi bi-layers"></i> TensorFlow</div>
+      <div class="badge-desc"><i class="bi bi-boxes"></i> Keras</div>
+      <div class="badge-desc"><i class="bi bi-eye"></i> OpenCV</div>
+      <div class="badge-desc"><i class="bi bi-fire"></i> PyTorch</div>
+    </div>
+
+    <!-- Group: Data Analysis & Visualization -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-graph-up-arrow"></i> Data Visualization</div>
+      <div class="badge-desc"><i class="bi bi-palette"></i> Matplotlib</div>
+      <div class="badge-desc"><i class="bi bi-droplet"></i> Seaborn</div>
+      <div class="badge-desc"><i class="bi bi-activity"></i> Plotly</div>
+      <div class="skill-badge"><i class="bi bi-table"></i> MS Excel</div>
+      <div class="badge-desc"><i class="bi bi-database-gear"></i> Data Modeling</div>
+      <div class="badge-desc"><i class="bi bi-calculator-fill"></i> Advanced Formulas</div>
+      <div class="skill-badge"><i class="bi bi-bar-chart-fill"></i> Tableau / Power BI</div>
+    </div>
+
+    <!-- Group: Advanced Topics -->
+    <div class="badge-group">
+      <div class="skill-badge"><i class="bi bi-calculator"></i> Statistics & Probability</div>
+      <div class="badge-desc"><i class="bi bi-percent"></i> Bayesian Methods</div>
+      <div class="skill-badge"><i class="bi bi-chat-left-text"></i> NLP & Text Analytics</div>
+      <div class="badge-desc"><i class="bi bi-emoji-smile"></i> Sentiment Analysis</div>
+      <div class="badge-desc"><i class="bi bi-chat-dots"></i> Chatbots</div>
+      <div class="skill-badge"><i class="bi bi-robot"></i> AI & Automation</div>
+      <div class="badge-desc"><i class="bi bi-infinity"></i> MLOps</div>
+      <div class="badge-desc"><i class="bi bi-magic"></i> AutoML</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h3 class="section-title">Featured Projects</h3>
+  <div class="project-grid">
+    <div class="project" style="animation-delay:0s;"><h4>Image Colorizer</h4><p>ML model that colorizes grayscale images.</p><a href="https://huggingface.co/spaces/SaifuddinHanif/Image-Colorizer">Click to view</a></div>
+    <div class="project" style="animation-delay:0.1s;"><h4>CardioGuard Pro</h4><p>Heart disease prediction model achieved 98% R² and 100% accuracy.</p><a href="https://huggingface.co/spaces/SaifuddinHanif/CardioGuard-Pro">Click to view</a></div>
+    <div class="project" style="animation-delay:0.2s;"><h4>EduBuddy</h4><p>A RAG system app, Summarize documents and ask Quizzes.</p><a href="https://saifuddinhanif-edubuddy.streamlit.app/">Click to view</a></div>
+    <div class="project" style="animation-delay:0.4s;"><h4>Student Performance Predictor</h4><p>Build predictive model with 98% accuracy.</p><a href="https://huggingface.co/spaces/SaifuddinHanif/Student-Performance-Predictor">Click to view</a></div>
+    <div class="project" style="animation-delay:0.5s;"><h4>Movies Recommendation Engine</h4><p>Collaborative filtering for personalized suggestions.</p><a href="https://recommendation-engine-saifuddin-hanif.streamlit.app/">Click to view</a></div>
+    <div class="project" style="animation-delay:0s;"><h4>AI Prior Authorization</h4><p>AI prior authorization platform uses both HL7 FHIR R4 and legacy X12 EDI 278 transactions with strict HIPAA compliance.</p><a href="https://github.com/saify09/Prior-Auth-Agent">Click to view</a></div>
+    <div class="project" style="animation-delay:0.3s;"><h4>AI Secretory</h4><p>Multi-Agent AI system that autonomously handles inbound meeting requests from voice/web intake, through RAG-powered research, scheduling negotiation, and Human-in-the-Loop (HITL) owner approval.</p><a href="https://github.com/saify09/AI-Secretory">Click to view</a></div>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials">
+  <h3 class="section-title">What People Say</h3>
+  <div class="testimonials-grid" id="testimonialsGrid">
+    <!-- Testimonials will be injected here via JS -->
+    <div class="testimonial-card">
+      <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+      <p class="testimonial-text">"An absolute pleasure to work with! The data insights provided were game-changing."</p>
+      <div class="testimonial-author">~ Happy Client</div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contact" class="contact">
+  <h3 class="section-title">Contact Me</h3>
+  <p>Let's connect! You can reach me through the links below.</p>
+  <div class="social-icons">
+    <a href="https://www.linkedin.com/in/saifuddin-hanif" class="social linkedin"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/saify09" class="social github"><i class="fab fa-github"></i></a>
+    <a href="mailto:saifuddinmuhammadhanif@gmail.com" class="social email"><i class="fas fa-envelope"></i></a>
+    <a href="https://x.com/Saif_0985" class="social twitter"><i class="bi bi-twitter-x"></i></a>
+  </div>
+
+<!-- Admin Modal (Backend) -->
+<div id="adminModal">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <div style="display:flex; flex-direction:column;">
+          <h2 style="margin:0;">Owner Dashboard</h2>
+          <span style="font-size:0.7rem; color:#666; margin-top:2px;">Advanced Portfolio Intelligence</span>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Reviews</div></div>
+        <div class="stat-item"><div class="stat-value" id="statAvg">5.0</div><div class="stat-label">Avg Rating</div></div>
+      </div>
+      <div style="display:flex; gap:1rem; align-items:center;">
+          <div id="backendStatusBadge" class="backend-status status-offline"><i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE</div>
+          <button class="admin-lock-btn" onclick="logoutAdmin()"><i class="bi bi-lock-fill"></i> Lock</button>
+          <span class="admin-close" onclick="closeAdmin()">&times;</span>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <!-- Insights Section -->
+      <div id="adminInsightsSection" style="margin-bottom:3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <div class="trend-title" style="margin:0;"><i class="bi bi-graph-up"></i> Performance Insights</div>
+            <div style="display:flex; gap:0.5rem; background:rgba(0,0,0,0.3); padding:4px; border-radius:30px; border:1px solid rgba(255,255,255,0.05);">
+                <button id="toggleLocal" class="admin-lock-btn" style="padding:4px 12px; font-size:0.6rem; background:#00ffd0; color:#000; border:none;" onclick="switchDataSource('local')">LOCAL</button>
+                <button id="toggleGlobal" class="admin-lock-btn" style="padding:4px 12px; font-size:0.6rem;" onclick="switchDataSource('global')">GLOBAL</button>
+            </div>
+        </div>
+        
+        <!-- Global Setup Info (Hidden by default) -->
+        <div id="globalSetupInfo" style="display:none; background:rgba(0,255,208,0.05); border:1px dashed #00ffd0; padding:1rem; border-radius:10px; margin-bottom:1.5rem; font-size:0.8rem; color:#fff;">
+            <i class="bi bi-info-circle-fill" style="color:#00ffd0"></i> 
+            <strong>Enable Global Tracking:</strong> To see insights from every visitor, simply paste your <strong>Firebase Config</strong> in the script section of <code>index.html</code>. 
+            <a href="https://console.firebase.google.com/" target="_blank" style="color:#00ffd0; text-decoration:underline;">Go to Firebase Console</a>
+        </div>
+
+        <div class="insights-row">
+            <div class="insight-card"><h4>Visits</h4><div class="value" id="insightVisits">0</div><div class="label">Total Lifetime</div></div>
+            <div class="insight-card"><h4>Engagement</h4><div class="value" id="insightTime">0s</div><div class="label">Avg Time Spent</div></div>
+            <div class="insight-card"><h4>Conversion</h4><div class="value" id="insightConv">0%</div><div class="label">Feedback Rate</div></div>
+        </div>
+
+        <!-- Local to Global Migration Button -->
+        <button id="migrateToGlobalBtn" class="sync-btn" style="display:none;" onclick="migrateLocalToGlobal()">
+            <i class="bi bi-cloud-arrow-up-fill"></i> SYNC LOCAL FEEDBACKS TO CLOUD
+        </button>
+
+
+        <div class="trend-title"><i class="bi bi-bar-chart"></i> Daily Visit Trend (Last 7 Days)</div>
+        <div class="bar-chart" id="adminVisitTrend">
+            <!-- Bars injected via JS -->
+        </div>
+
+        <div class="popular-sections">
+            <div class="trend-title"><i class="bi bi-eye"></i> Section Popularity</div>
+            <div id="adminSectionStats">
+                <!-- Section data injected via JS -->
+            </div>
         </div>
       </div>
-      <aside class="hero-card" aria-label="Snapshot">
-        <h2 style="font-size:1.2rem; margin:0 0 .4rem;">Professional Snapshot</h2>
-        <p class="subtitle" style="margin:0;">20+ years of problem solving across software, data, and product delivery.</p>
-        <div class="stats">
-          <article class="metric"><div class="value" data-counter="120">0</div><div class="label">Projects Delivered</div></article>
-          <article class="metric"><div class="value" data-counter="35">0</div><div class="label">Enterprise Clients</div></article>
-          <article class="metric"><div class="value" data-counter="99.9">0</div><div class="label">Average Uptime (%)</div></article>
-          <article class="metric"><div class="value" data-counter="16">0</div><div class="label">Tech Domains</div></article>
-        </div>
-      </aside>
-    </section>
 
-    <section id="about">
-      <h2>About</h2>
-      <p class="subtitle">I combine engineering discipline with product thinking and analytics maturity.</p>
-      <article class="card">
-        <p>
-          I help organizations modernize legacy applications, implement cloud-native architectures,
-          and operationalize analytics. My approach is pragmatic: discover bottlenecks, validate assumptions,
-          and build the smallest reliable solution that creates business impact quickly.
-        </p>
-      </article>
-    </section>
-
-    <section id="services">
-      <h2>Core Services</h2>
-      <p class="subtitle">End-to-end ownership from architecture to deployment and optimization.</p>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Full Stack Engineering</h3>
-          <p>Production-grade web platforms with secure APIs, scalable databases, and polished UX.</p>
-          <div class="stack"><span class="tag">React/Next.js</span><span class="tag">Node/Python</span><span class="tag">PostgreSQL</span></div>
-        </article>
-        <article class="card">
-          <h3>Data & AI Integration</h3>
-          <p>Analytics workflows, model integration, and decision support dashboards with traceability.</p>
-          <div class="stack"><span class="tag">ETL/ELT</span><span class="tag">ML Ops</span><span class="tag">BI</span></div>
-        </article>
-        <article class="card">
-          <h3>Performance & Reliability</h3>
-          <p>Audits and optimization across availability, latency, accessibility, SEO, and maintainability.</p>
-          <div class="stack"><span class="tag">Observability</span><span class="tag">SRE</span><span class="tag">Security</span></div>
-        </article>
+      <!-- Feedback Management Section -->
+      <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th width="150">Name</th>
+                <th width="100">Rating</th>
+                <th>Feedback Message</th>
+                <th width="150">Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminFeedbackTableBody">
+              <!-- Data injected via JS -->
+            </tbody>
+          </table>
       </div>
-    </section>
+    </div>
+  </div>
+</div>
 
-    <section id="projects">
-      <h2>Selected Projects</h2>
-      <p class="subtitle">Representative outcomes from cross-functional deliveries.</p>
-      <div class="grid-3">
-        <article class="card project">
-          <h3>Revenue Intelligence Platform</h3>
-          <p>Unified sales, CRM, and support data into a predictive churn model and live executive dashboard.</p>
-          <strong>Outcome:</strong> 22% churn reduction in two quarters.
-        </article>
-        <article class="card project">
-          <h3>Modernized Client Portal</h3>
-          <p>Rebuilt legacy monolith into modular services with SSO, role-based access control, and audit trails.</p>
-          <strong>Outcome:</strong> 47% faster feature delivery cycle.
-        </article>
-        <article class="card project">
-          <h3>Support Automation Suite</h3>
-          <p>Implemented LLM-assisted ticket triage, knowledge search, and SLA breach forecasting.</p>
-          <strong>Outcome:</strong> 38% ticket resolution time improvement.
-        </article>
-      </div>
-    </section>
+<!-- Admin Login Overlay (Moved to root for max visibility) -->
+<div id="adminLoginOverlay">
+    <div class="login-card">
+        <div style="font-size:3.5rem; color:#00ffd0; margin-bottom:1rem;"><i class="bi bi-shield-lock-fill"></i></div>
+        <h3>ADMIN ACCESS</h3>
+        <input type="password" id="adminPassInput" placeholder="••••••" onkeyup="if(event.key==='Enter') attemptLogin()">
+        <button class="login-btn" onclick="attemptLogin()">AUTHENTICATE</button>
+        <p style="margin-top:2rem; font-size:0.75rem; color:#666; font-family:monospace;">RESTRICTED AREA: AUTHORIZED PERSONNEL ONLY</p>
+    </div>
+</div>
 
-    <section id="analytics">
-      <h2>Analytics & Insights</h2>
-      <p class="subtitle">Integrated analytics section for a more professional and measurable web presence.</p>
-      <div class="analytics-wrap">
-        <article class="card">
-          <h3 style="margin-top:0;">Monthly Engagement (sample)</h3>
-          <div class="chart" aria-label="Engagement chart">
-            <div class="bar" style="height:42%" data-value="42"></div>
-            <div class="bar" style="height:57%" data-value="57"></div>
-            <div class="bar" style="height:65%" data-value="65"></div>
-            <div class="bar" style="height:76%" data-value="76"></div>
-            <div class="bar" style="height:83%" data-value="83"></div>
-            <div class="bar" style="height:92%" data-value="92"></div>
-          </div>
-        </article>
-        <article class="card">
-          <h3 style="margin-top:0;">Live Page Metrics</h3>
-          <p class="subtitle" style="margin-bottom: 0.8rem;">Simple on-page analytics tracker (privacy-friendly, local only demo).</p>
-          <div class="metric"><div class="value" id="pageViews">0</div><div class="label">Page Views</div></div>
-          <div class="metric" style="margin-top:.7rem;"><div class="value" id="ctaClicks">0</div><div class="label">CTA Clicks</div></div>
-          <div class="metric" style="margin-top:.7rem;"><div class="value" id="faqOpens">0</div><div class="label">FAQ Opens</div></div>
-        </article>
-      </div>
-    </section>
 
-    <section id="faq" class="faq">
-      <h2>Frequently Asked Questions</h2>
-      <p class="subtitle">Common questions from founders, product teams, and operations leaders.</p>
-      <details>
-        <summary>What type of projects do you typically handle?</summary>
-        <p>I take ownership of full lifecycle projects including architecture, implementation, release, and optimization for web/data products.</p>
-      </details>
-      <details>
-        <summary>Can you work with existing engineering teams?</summary>
-        <p>Yes. I often embed into existing teams to accelerate delivery, mentor developers, and improve systems without disrupting roadmaps.</p>
-      </details>
-      <details>
-        <summary>How do you ensure quality and error-free delivery?</summary>
-        <p>I use structured code reviews, automated validation, observability-first design, and staged deployment with rollback strategy.</p>
-      </details>
-      <details>
-        <summary>Do you provide post-launch support?</summary>
-        <p>Absolutely. I provide ongoing performance monitoring, security patching, and roadmap support after launch.</p>
-      </details>
-    </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p class="subtitle">Share your project scope. I will respond with a practical action plan.</p>
-      <article class="card">
-        <form id="contactForm" novalidate>
-          <label>
-            Name
-            <input id="name" name="name" required minlength="2" placeholder="Your full name" />
-          </label>
-          <label>
-            Email
-            <input id="email" type="email" name="email" required placeholder="name@company.com" />
-          </label>
-          <label>
-            Project Summary
-            <textarea id="message" name="message" required minlength="20" placeholder="Goals, timeline, and current blockers..."></textarea>
-          </label>
-          <button class="btn btn-primary" type="submit">Send Inquiry</button>
-          <p id="formMessage" class="form-msg" role="status" aria-live="polite"></p>
-        </form>
-      </article>
-    </section>
-  </main>
+  <div id="feedback-section">
+  <button id="feedbackBtn" class="feedback-btn">Give Feedback</button>
 
-  <footer>
-    © <span id="year"></span> Saifuddin Hanif. Built with performance, accessibility, and maintainability in mind.
-  </footer>
+  <div id="feedbackFormContainer" style="display:none; margin-top:15px;">
+      <div id="starRating" class="star-rating"></div>
+      <input type="text" id="feedbackName" placeholder="Your Name" />
+      <textarea id="feedbackMessage" placeholder="Your Feedback"></textarea>
+      <button id="submitFeedback" class="submit-btn">Submit</button>
+    </div>
 
-  <script>
-    (function () {
-      const year = document.getElementById('year');
-      year.textContent = new Date().getFullYear();
+    <div id="feedbackSummary" class="feedback-summary" style="margin-top:15px; font-size:25px;"></div>
+  </div>
+</section>
 
-      const counters = document.querySelectorAll('[data-counter]');
-      counters.forEach((counter) => {
-        const target = Number(counter.dataset.counter);
-        const isFloat = String(target).includes('.');
-        const duration = 900;
-        const frameRate = 16;
-        const steps = Math.ceil(duration / frameRate);
-        let current = 0;
-        let step = 0;
-        const increment = target / steps;
-        const timer = setInterval(() => {
-          step += 1;
-          current += increment;
-          if (step >= steps) {
-            current = target;
-            clearInterval(timer);
+<footer>
+  <p>© 2025 Saifuddin Hanif | Data Scientist Portfolio | <a href="javascript:void(0)" onclick="openAdmin()" style="color:#333; text-decoration:none; font-size:0.7rem; cursor:default;">Owner Login</a></p>
+</footer>
+
+<!-- Resume Modal -->
+<div class="modal" id="resumeModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <iframe src="https://drive.google.com/file/d/1EBz4DIsMuiRqxiWJd5V15cUVNOY1wV0F/preview"></iframe>
+
+    <a href="https://drive.google.com/file/d/1EBz4DIsMuiRqxiWJd5V15cUVNOY1wV0F/view" class="download-btn">Download Resume</a>
+  </div>
+</div>
+
+<script>
+// === PARTICLES ===
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particlesArray;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+class Particle {
+  constructor() {
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.size = Math.random()*2;
+    this.speedX = Math.random()*0.3-0.15;
+    this.speedY = Math.random()*0.3-0.15;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x<0||this.x>canvas.width) this.speedX*=-1;
+    if(this.y<0||this.y>canvas.height) this.speedY*=-1;
+  }
+  draw(){
+    ctx.fillStyle='rgba(0,255,208,0.6)';
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function init(){particlesArray=[];for(let i=0;i<60;i++){particlesArray.push(new Particle());}}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+window.addEventListener('resize', () => {canvas.width = innerWidth; canvas.height = innerHeight; init();});
+
+init();
+animate();
+
+// === RESUME MODAL ===
+const modal = document.getElementById('resumeModal');
+const openModalBtns = [document.getElementById('openResume'), document.getElementById('openResume2')];
+const closeModalBtn = document.getElementById('closeModal');
+
+openModalBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {e.preventDefault(); modal.style.display = 'flex';});
+});
+closeModalBtn.addEventListener('click', () => {modal.style.display = 'none';});
+window.addEventListener('click', (e) => {if(e.target==modal) modal.style.display='none';});
+
+// === SMOOTH SCROLL & ACTIVE NAV ===
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a');
+const headerOffset = 120;
+
+function updateActiveLink() {
+    const scrollY = window.pageYOffset;
+    let current = 'home';
+    sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop - headerOffset;
+        const sectionHeight = section.offsetHeight;
+        if(index < sections.length - 1) {
+            if(scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) current = section.getAttribute('id');
+        } else {
+            if(scrollY + window.innerHeight >= sectionTop + sectionHeight/2) current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {link.classList.remove('active'); if(link.getAttribute('href') === '#' + current) link.classList.add('active');});
+    history.replaceState(null, '', '#' + current);
+}
+window.addEventListener('scroll', updateActiveLink);
+// Standard: Update active link on load, but rely on browser/initStandardScroll for position
+window.addEventListener('load', updateActiveLink);
+
+
+// === FEEDBACK SYSTEM === //
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackFormContainer = document.getElementById('feedbackFormContainer');
+const starRating = document.getElementById('starRating');
+const feedbackName = document.getElementById('feedbackName');
+const feedbackMessage = document.getElementById('feedbackMessage');
+const submitFeedback = document.getElementById('submitFeedback');
+const feedbackSummary = document.getElementById('feedbackSummary');
+
+// === GLOBAL CLOUD CONFIGURATION (Zero-Config Mode) ===
+const CLOUD_ID = "3a6cf3717ec46925f2ba"; 
+const CLOUD_URL = `https://api.npoint.io/${CLOUD_ID}`;
+
+let isCloudActive = true; 
+
+// --- GLOBAL FEATURED FEEDBACKS (Managed via Dashboard) ---
+let featuredFeedbacks = [];
+
+// ---------------------------------
+
+
+
+let selectedRating = 0;
+
+
+// Toggle feedback form visibility
+feedbackBtn.addEventListener('click', () => {
+  feedbackFormContainer.style.display =
+    feedbackFormContainer.style.display === 'none' ? 'block' : 'none';
+});
+
+// Create clickable stars
+function createStars() {
+  starRating.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-star';
+    icon.dataset.value = i;
+
+    icon.addEventListener('mouseenter', () => renderStars(i));
+    icon.addEventListener('mouseleave', () => renderStars(selectedRating));
+    icon.addEventListener('click', () => {
+      selectedRating = i;
+      renderStars(selectedRating);
+    });
+
+    starRating.appendChild(icon);
+  }
+}
+
+// Render filled stars on hover/click
+function renderStars(rating) {
+  const stars = starRating.querySelectorAll('i');
+  stars.forEach((star, index) => {
+    const value = index + 1;
+    star.className = value <= rating ? 'bi bi-star-fill' : 'bi bi-star';
+  });
+}
+
+// Function to update feedback summary (Local + Cloud)
+async function updateFeedbackSummary() {
+  const testimonialsGrid = document.getElementById('testimonialsGrid');
+  const statusBadge = document.getElementById('backendStatusBadge');
+
+  if (isCloudActive) {
+      try {
+          const response = await fetch(CLOUD_URL);
+          const data = await response.json();
+          const cloudFeedbacks = data.feedbacks || [];
+          renderAll(cloudFeedbacks, true);
+          
+          if(statusBadge) {
+              statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: ACTIVE';
+              statusBadge.className = 'backend-status status-online';
           }
-          counter.textContent = isFloat ? current.toFixed(1) : Math.round(current);
-        }, frameRate);
-      });
+      } catch (err) {
+          console.error("Cloud Fetch Error:", err);
+          useLocalFallback();
+      }
+  } else {
+      useLocalFallback();
+  }
+}
 
-      const storage = {
-        get(key) { return Number(localStorage.getItem(key) || 0); },
-        set(key, value) { localStorage.setItem(key, String(value)); }
-      };
+function useLocalFallback() {
+    const statusBadge = document.getElementById('backendStatusBadge');
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    renderAll(localFeedbacks, false);
+    if(statusBadge) {
+        statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
+        statusBadge.className = 'backend-status status-offline';
+    }
+}
 
-      storage.set('pageViews', storage.get('pageViews') + 1);
-      document.getElementById('pageViews').textContent = storage.get('pageViews');
-      document.getElementById('ctaClicks').textContent = storage.get('ctaClicks');
-      document.getElementById('faqOpens').textContent = storage.get('faqOpens');
+// Helper to get HTML for stars
+function getStarsHTML(rating) {
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i - 0.25) {
+      html += '<i class="bi bi-star-fill"></i>';
+    } else if (rating >= i - 0.75) {
+      html += '<i class="bi bi-star-half"></i>';
+    } else {
+      html += '<i class="bi bi-star"></i>';
+    }
+  }
+  return html;
+}
 
-      document.querySelectorAll('.btn-primary').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          storage.set('ctaClicks', storage.get('ctaClicks') + 1);
-          document.getElementById('ctaClicks').textContent = storage.get('ctaClicks');
+function renderAll(feedbacks, fromGlobal) {
+  const total = feedbacks.length;
+  const avg = total ? feedbacks.reduce((a, f) => a + (f.rating || 0), 0) / total : 0;
+
+  // Update Stats
+  if(document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
+  if(document.getElementById('statAvg')) document.getElementById('statAvg').innerText = avg.toFixed(1);
+
+  // Summary Card Logic
+  const starsHTML = getStarsHTML(avg);
+
+  feedbackSummary.innerHTML = `
+    <div class="feedback-summary-text">${total} Total Feedback${total !== 1 ? 's' : ''}</div>
+    <div class="feedback-stars">${starsHTML} <span> ${avg.toFixed(1)}</span></div>
+  `;
+
+  // Update Testimonials Grid
+  const testimonialsGrid = document.getElementById('testimonialsGrid');
+  if(testimonialsGrid) {
+      const genuineReviews = feedbacks.filter(f => f.rating === 5);
+      const displayFeedbacks = genuineReviews.slice(0, 6);
+      
+      let htmlContent = '';
+      if(displayFeedbacks.length > 0) {
+          displayFeedbacks.forEach(f => {
+              htmlContent += `
+              <div class="testimonial-card">
+                <div class="testimonial-stars">${getStarsHTML(f.rating)}</div>
+                <p class="testimonial-text">"${f.message}"</p>
+                <div class="testimonial-author">~ ${f.name}</div>
+              </div>`;
+          });
+      } else {
+          htmlContent = `<div class="testimonial-card"><p class="testimonial-text">No feedbacks yet!</p></div>`;
+      }
+      testimonialsGrid.innerHTML = htmlContent;
+  }
+}
+
+
+
+
+// Handle feedback submission
+submitFeedback.addEventListener('click', async () => {
+  const name = feedbackName.value.trim();
+  const message = feedbackMessage.value.trim();
+
+  if (!name || !message || selectedRating === 0) {
+    alert('Please fill all fields and select a rating!');
+    return;
+  }
+
+  const feedbackData = { name, message, rating: selectedRating, timestamp: Date.now() };
+
+  if (isCloudActive) {
+      // SAVE TO CLOUD (npoint)
+      try {
+          const res = await fetch(CLOUD_URL);
+          const currentData = await res.json();
+          const feedbacks = currentData.feedbacks || [];
+          feedbacks.unshift(feedbackData); // Newest first
+          
+          await fetch(CLOUD_URL, {
+              method: 'POST', 
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ feedbacks })
+          });
+          
+          console.log("✅ Feedback saved to cloud!");
+          resetForm();
+          updateFeedbackSummary();
+      } catch (err) {
+          console.error("Cloud Sync Error:", err);
+          saveLocally(feedbackData);
+      }
+  } else {
+      saveLocally(feedbackData);
+  }
+});
+
+function saveLocally(data) {
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    feedbacks.push(data);
+    localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+    resetForm();
+    updateFeedbackSummary();
+}
+
+function resetForm() {
+  feedbackName.value = '';
+  feedbackMessage.value = '';
+  selectedRating = 0;
+  renderStars(selectedRating);
+  feedbackFormContainer.style.display = 'none';
+}
+
+
+createStars();
+renderStars(selectedRating);
+updateFeedbackSummary();
+
+
+// === INSIGHTS & TRACKING SYSTEM ===
+const TrackingManager = {
+    init: function() {
+        this.trackVisit();
+        this.trackEngagement();
+        this.trackSections();
+    },
+    
+    // 1. Visit Tracking
+    trackVisit: function() {
+        const stats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Track daily visits
+        stats[today] = (stats[today] || 0) + 1;
+        localStorage.setItem('stats_visits', JSON.stringify(stats));
+        
+        // Track total visits
+        let total = parseInt(localStorage.getItem('stats_total_visits') || '0');
+        localStorage.setItem('stats_total_visits', total + 1);
+    },
+    
+    // 2. Engagement Time
+    trackEngagement: function() {
+        let sessionStart = Date.now();
+        setInterval(() => {
+            let currentViewTime = Math.floor((Date.now() - sessionStart) / 1000);
+            let totalTime = parseInt(localStorage.getItem('stats_total_time') || '0');
+            localStorage.setItem('stats_total_time', totalTime + 1);
+            sessionStart = Date.now(); // reset start to just log the 5s interval
+        }, 5000); // sync every 5 seconds
+    },
+    
+    // 3. Section Visibility Tracking
+    trackSections: function() {
+        const sections = ['home', 'about', 'skills', 'projects', 'testimonials', 'contact'];
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const stats = JSON.parse(localStorage.getItem('stats_sections') || '{}');
+                    stats[sectionId] = (stats[sectionId] || 0) + 1;
+                    localStorage.setItem('stats_sections', JSON.stringify(stats));
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) observer.observe(el);
         });
-      });
+    }
+};
 
-      document.querySelectorAll('#faq details').forEach((faqItem) => {
-        faqItem.addEventListener('toggle', () => {
-          if (faqItem.open) {
-            storage.set('faqOpens', storage.get('faqOpens') + 1);
-            document.getElementById('faqOpens').textContent = storage.get('faqOpens');
-          }
+// Initialize Tracking
+TrackingManager.init();
+
+// === ADMIN DASHBOARD LOGIC (INTERACTIVE & SECURE) ===
+const adminModal = document.getElementById('adminModal');
+const adminLoginOverlay = document.getElementById('adminLoginOverlay');
+const adminTableBody = document.getElementById('adminFeedbackTableBody');
+const ADMIN_PASSWORD = "Saifuddin0985"; // You can change this
+
+// NO SETUP REQUIRED:
+// This portfolio is automatically connected to the world.
+// Your feedbacks are synced to a secure cloud bin by default.
+
+
+window.openAdmin = function() {
+    console.log("🛠️ Initializing Admin Dashboard...");
+    const sessionToken = sessionStorage.getItem('admin_session');
+    
+    if (sessionToken === 'active') {
+        console.log("🔓 Session active. Opening Dashboard.");
+        adminModal.style.display = 'flex';
+        adminLoginOverlay.style.display = 'none';
+        renderAdminDashboard();
+    } else {
+        console.log("🔒 Session locked. Prompting for password.");
+        adminLoginOverlay.style.display = 'flex';
+        setTimeout(() => {
+            const input = document.getElementById('adminPassInput');
+            if(input) input.focus();
+        }, 100);
+    }
+};
+
+window.attemptLogin = function() {
+    const input = document.getElementById('adminPassInput');
+    const pass = input.value;
+    
+    if (pass === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin_session', 'active');
+        adminLoginOverlay.style.display = 'none';
+        adminModal.style.display = 'flex';
+        renderAdminDashboard();
+        input.value = '';
+        console.log("🔓 Authentication Successful.");
+    } else {
+        alert("❌ Incorrect password!");
+        input.value = '';
+        input.focus();
+    }
+};
+
+window.logoutAdmin = function() {
+    sessionStorage.removeItem('admin_session');
+    adminLoginOverlay.style.display = 'flex';
+    adminModal.style.display = 'none';
+    console.log("🔒 Session Terminated.");
+};
+
+window.closeAdmin = function() {
+    adminModal.style.display = 'none';
+};
+
+let adminViewSource = 'global'; // Track which source we are viewing
+
+window.switchDataSource = function(source) {
+    adminViewSource = source;
+    const localBtn = document.getElementById('toggleLocal');
+    const globalBtn = document.getElementById('toggleGlobal');
+    const setupInfo = document.getElementById('globalSetupInfo');
+    const statusBadge = document.getElementById('backendStatusBadge');
+
+    if(source === 'global') {
+        localBtn.style.background = 'none';
+        localBtn.style.color = '#aaa';
+        globalBtn.style.background = '#00ffd0';
+        globalBtn.style.color = '#000';
+        
+        if(!CLOUD_ID) {
+            setupInfo.style.display = 'block';
+            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: OFFLINE';
+            statusBadge.className = 'backend-status status-offline';
+        } else {
+            statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> GLOBAL: ACTIVE';
+            statusBadge.className = 'backend-status status-online';
+        }
+    } else {
+        globalBtn.style.background = 'none';
+        globalBtn.style.color = '#aaa';
+        localBtn.style.background = '#00ffd0';
+        localBtn.style.color = '#000';
+        setupInfo.style.display = 'none';
+        statusBadge.innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem"></i> LOCAL MODE';
+        statusBadge.className = 'backend-status status-offline';
+    }
+    renderAdminDashboard(); 
+};
+
+async function renderAdminDashboard() {
+    let feedbacks = [];
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    
+    adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;"><i class="bi bi-arrow-repeat spin"></i> Loading Data...</td></tr>';
+
+    if (adminViewSource === 'global' && isCloudActive) {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            feedbacks = data.feedbacks || [];
+        } catch (err) {
+            console.error("Dashboard Cloud Fetch Error:", err);
+            feedbacks = [];
+        }
+    } else {
+        feedbacks = localFeedbacks;
+    }
+    
+    // --- RENDER INSIGHTS ---
+    const totalVisits = localStorage.getItem('stats_total_visits') || '0';
+    const totalTime = parseInt(localStorage.getItem('stats_total_time') || '0');
+    const avgTime = totalVisits > 0 ? (totalTime / totalVisits).toFixed(0) : 0;
+    const convRate = totalVisits > 0 ? ((feedbacks.length / totalVisits) * 100).toFixed(1) : 0;
+    
+    document.getElementById('insightVisits').innerText = totalVisits;
+    document.getElementById('insightTime').innerText = avgTime + 's';
+    document.getElementById('insightConv').innerText = convRate + '%';
+    
+    // --- SHOW MIGRATION BUTTON IF LOCAL DATA EXISTS ---
+    const migrateBtn = document.getElementById('migrateToGlobalBtn');
+    if (migrateBtn) {
+        if (localFeedbacks.length > 0) {
+            migrateBtn.style.display = 'flex';
+        } else {
+            migrateBtn.style.display = 'none';
+        }
+    }
+    
+    // Visit Trends (Last 7 Days)
+    const visitStats = JSON.parse(localStorage.getItem('stats_visits') || '{}');
+    const trendContainer = document.getElementById('adminVisitTrend');
+    let trendHtml = '';
+    const dates = [];
+    for(let i=6; i>=0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        dates.push(d.toISOString().split('T')[0]);
+    }
+    
+    const maxVisits = Math.max(...dates.map(d => visitStats[d] || 0), 10);
+    dates.forEach(d => {
+        const val = visitStats[d] || 0;
+        const height = (val / maxVisits) * 100;
+        const label = d.split('-')[2]; // day only
+        trendHtml += `
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center;">
+                <div class="bar" style="height:${height}%; width:100%;" data-val="${val}"></div>
+                <div class="bar-label">${label}</div>
+            </div>`;
+    });
+    trendContainer.innerHTML = trendHtml;
+    
+    // Section Popularity
+    const sectionStats = JSON.parse(localStorage.getItem('stats_sections') || '{}');
+    const secContainer = document.getElementById('adminSectionStats');
+    let secHtml = '';
+    const sortedSections = Object.entries(sectionStats).sort((a,b) => b[1] - a[1]);
+    sortedSections.forEach(([name, count]) => {
+        secHtml += `
+            <div class="section-stat-item">
+                <span class="section-stat-name">${name.toUpperCase()}</span>
+                <span class="section-stat-count">${count} views</span>
+            </div>`;
+    });
+    secHtml = secHtml || '<div style="color:#444;">Scroll sections to see data...</div>';
+    secContainer.innerHTML = secHtml;
+
+    // --- RENDER TABLE ---
+    if(feedbacks.length === 0) {
+        adminTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No data found in this source.</td></tr>';
+        return;
+    }
+    
+    let html = '';
+    feedbacks.forEach((f, index) => {
+        html += `
+        <tr id="adminRow-${adminViewSource}-${index}">
+            <td style="font-weight:600; color:#fff;">${f.name}</td>
+            <td>${getStarsHTML(f.rating)}</td>
+            <td style="font-size:0.9rem; line-height:1.4;">${f.message}</td>
+            <td class="admin-action-btns">
+                <button class="edit-btn" onclick="editReview('${adminViewSource}', ${index})">Edit</button>
+                <button class="delete-btn" onclick="deleteReview('${adminViewSource}', ${index})">Delete</button>
+            </td>
+        </tr>
+        `;
+    });
+    adminTableBody.innerHTML = html;
+}
+
+window.deleteReview = async function(type, index) {
+    if(!confirm('Permanently delete this review?')) return;
+    
+    if (type === 'global') {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            const feedbacks = data.feedbacks || [];
+            feedbacks.splice(index, 1);
+            
+            await fetch(CLOUD_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ feedbacks })
+            });
+            console.log("🗑️ Cloud feedback deleted.");
+            updateFeedbackSummary();
+            renderAdminDashboard();
+        } catch (err) {
+            console.error("Delete Error:", err);
+        }
+    } else {
+        // Local Delete
+        const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        localFeedbacks.splice(index, 1);
+        localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
+        updateFeedbackSummary();
+        renderAdminDashboard();
+    }
+};
+
+
+window.editReview = async function(type, index) {
+    if (type === 'global') {
+        try {
+            const res = await fetch(CLOUD_URL);
+            const data = await res.json();
+            const feedbacks = data.feedbacks || [];
+            const review = feedbacks[index];
+            
+            if (review) {
+                 const newMsg = prompt("Edit Global Feedback:", review.message);
+                 if (newMsg) {
+                     review.message = newMsg;
+                     await fetch(CLOUD_URL, {
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify({ feedbacks })
+                     });
+                     updateFeedbackSummary();
+                     renderAdminDashboard();
+                 }
+            }
+        } catch (err) {
+            console.error("Edit Error:", err);
+        }
+    } else {
+        const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        const review = localFeedbacks[index];
+        const newMsg = prompt("Edit Feedback Message:", review.message);
+        if(newMsg !== null) {
+            review.message = newMsg;
+            localStorage.setItem('feedbacks', JSON.stringify(localFeedbacks));
+            updateFeedbackSummary();
+            renderAdminDashboard();
+        }
+    }
+};
+
+
+window.addEventListener('click', (e) => {
+    if(e.target === adminModal) closeAdmin();
+});
+
+// --- LOCAL TO GLOBAL MIGRATION ---
+window.migrateLocalToGlobal = async function() {
+    const localFeedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+    if (!isCloudActive || localFeedbacks.length === 0) return;
+
+    if (!confirm(`Found ${localFeedbacks.length} feedbacks on this device. Upload them to the Global Cloud?`)) return;
+
+    const btn = document.getElementById('migrateToGlobalBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-arrow-repeat spin"></i> UPLOADING...';
+
+    try {
+        const res = await fetch(CLOUD_URL);
+        const currentData = await res.json();
+        const cloudFeedbacks = currentData.feedbacks || [];
+        
+        const mergedFeedbacks = [...localFeedbacks, ...cloudFeedbacks];
+        
+        await fetch(CLOUD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ feedbacks: mergedFeedbacks })
         });
-      });
 
-      const form = document.getElementById('contactForm');
-      const formMessage = document.getElementById('formMessage');
+        alert("🎉 Successfully synced all feedbacks to the Global Cloud! Everyone can now see them.");
+        localStorage.setItem('feedbacks', '[]'); 
+        btn.style.display = 'none';
+        updateFeedbackSummary();
+        renderAdminDashboard();
+    } catch (err) {
+        console.error("Migration Error:", err);
+        alert("⚠️ Error during sync. Please check your internet connection.");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-cloud-arrow-up-fill"></i> SYNC LOCAL FEEDBACKS TO CLOUD';
+    }
+};
 
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
+// Remove Legacy FeedbackManager
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
+if(window.FeedbackManager) delete window.FeedbackManager;
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-        if (name.length < 2) {
-          formMessage.className = 'form-msg err';
-          formMessage.textContent = 'Please enter a valid name (minimum 2 characters).';
-          return;
-        }
+// === STANDARD SCROLL LOGIC ===
+// 1. On Reload: Browser restores position (default behavior).
+// 2. On New Visit with Hash (e.g. #contact): Scroll to section.
+// 3. On New Visit without Hash: Scroll to top.
 
-        if (!emailRegex.test(email)) {
-          formMessage.className = 'form-msg err';
-          formMessage.textContent = 'Please enter a valid business email address.';
-          return;
-        }
+window.addEventListener('DOMContentLoaded', () => {
+  // If entry is a "navigate" (new visit) and there is NO hash, scroll top.
+  // We check for hash to avoid breaking deep links like mysite.com/#about
+  const isNavigate = performance.getEntriesByType("navigation")[0]?.type === "navigate";
+  const hasHash = window.location.hash.length > 0;
 
-        if (message.length < 20) {
-          formMessage.className = 'form-msg err';
-          formMessage.textContent = 'Please provide at least 20 characters in the project summary.';
-          return;
-        }
-
-        formMessage.className = 'form-msg ok';
-        formMessage.textContent = 'Thank you. Your inquiry is validated and ready to be sent to backend integration.';
-        form.reset();
-      });
-
-      // Optional GA4 integration placeholder
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
-    })();
-  </script>
+  if (isNavigate && !hasHash) {
+     window.scrollTo(0, 0);
+  }
+  // Note: For #hashes, browsers handle auto-scrolling by default. 
+  // If inconsistent, we could force it here, but native is best standard.
+});
+</script>
 </body>
-</html>
